@@ -1,0 +1,270 @@
+parse
+
+22	Nodes
+
+2	States
+
+4000	Width
+4000	Height
+
+Name:	A
+Color:	0
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	1825	1825
+Table:	Tables/A.csv
+
+Name:	B
+Color:	1
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	1925	1825
+Table:	Tables/B.csv
+
+Name:	C
+Color:	2
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2025	1825
+Table:	Tables/C.csv
+
+Name:	D
+Color:	3
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2125	1825
+Table:	Tables/D.csv
+
+Name:	E
+Color:	4
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2225	1825
+Table:	Tables/E.csv
+
+Name:	F
+Color:	5
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	1825	1925
+Table:	Tables/F.csv
+
+Name:	G
+Color:	6
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	1925	1925
+Table:	Tables/G.csv
+
+Name:	H
+Color:	7
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2025	1925
+Table:	Tables/H.csv
+
+Name:	I
+Color:	8
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2125	1925
+Table:	Tables/I.csv
+
+Name:	J
+Color:	9
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2225	1925
+Table:	Tables/J.csv
+
+Name:	L
+Color:	10
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	1825	2025
+Table:	Tables/L.csv
+
+Name:	K
+Color:	11
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	1925	2025
+Table:	Tables/K.csv
+
+Name:	N
+Color:	12
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2025	2025
+Table:	Tables/N.csv
+
+Name:	M
+Color:	13
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2125	2025
+Table:	Tables/M.csv
+
+Name:	P
+Color:	14
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2225	2025
+Table:	Tables/P.csv
+
+Name:	O
+Color:	0
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	1825	2125
+Table:	Tables/O.csv
+
+Name:	R
+Color:	1
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	1925	2125
+Table:	Tables/R.csv
+
+Name:	Q
+Color:	2
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2025	2125
+Table:	Tables/Q.csv
+
+Name:	T
+Color:	3
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2125	2125
+Table:	Tables/T.csv
+
+Name:	S
+Color:	4
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	2225	2125
+Table:	Tables/S.csv
+
+Name:	V
+Color:	5
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	1825	2225
+Table:	Tables/V.csv
+
+Name:	U
+Color:	6
+Shape:	1
+Radius:	24.475
+States:	2	low	high
+Loc:	1925	2225
+Table:	Tables/U.csv
+
+
+11	Edges
+
+Start:	A
+End:	B
+Name:	upregulates
+Weight:	0.0
+Color:	0
+2	Anchors:	1825	1825	1925	1825
+
+Start:	C
+End:	D
+Name:	regulates
+Weight:	0.0
+Color:	2
+2	Anchors:	2025	1825	2125	1825
+
+Start:	E
+End:	F
+Name:	interacts
+Weight:	0.0
+Color:	4
+2	Anchors:	2225	1825	1825	1925
+
+Start:	G
+End:	H
+Name:	regulates
+Weight:	0.0
+Color:	6
+2	Anchors:	1925	1925	2025	1925
+
+Start:	I
+End:	J
+Name:	regulates
+Weight:	0.0
+Color:	8
+2	Anchors:	2125	1925	2225	1925
+
+Start:	L
+End:	K
+Name:	upregulated
+Weight:	0.0
+Color:	10
+2	Anchors:	1825	2025	1925	2025
+
+Start:	N
+End:	M
+Name:	regulates
+Weight:	0.0
+Color:	12
+2	Anchors:	2025	2025	2125	2025
+
+Start:	P
+End:	O
+Name:	regulates
+Weight:	0.0
+Color:	14
+2	Anchors:	2225	2025	1825	2125
+
+Start:	R
+End:	Q
+Name:	regulates
+Weight:	0.0
+Color:	1
+2	Anchors:	1925	2125	2025	2125
+
+Start:	T
+End:	S
+Name:	regulates
+Weight:	0.0
+Color:	3
+2	Anchors:	2125	2125	2225	2125
+
+Start:	V
+End:	U
+Name:	regulates
+Weight:	0.0
+Color:	5
+2	Anchors:	1825	2225	1925	2225
+
+
+0	Drawings
+
+<NOTES>
+</NOTES>
