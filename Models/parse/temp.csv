@@ -11,7 +11,7 @@ AbrevName:	A
 FullName:	A
 Color:	0
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	1825	1825
 Table:	Tables/A.csv
@@ -20,7 +20,7 @@ AbrevName:	C
 FullName:	C
 Color:	1
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	1925	1825
 Table:	Tables/C.csv
@@ -29,16 +29,16 @@ AbrevName:	B
 FullName:	B
 Color:	2
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
-Loc:	2025	1825
+Loc:	2024	1829
 Table:	Tables/B.csv
 
 AbrevName:	D
 FullName:	D
 Color:	3
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2125	1825
 Table:	Tables/D.csv
@@ -47,7 +47,7 @@ AbrevName:	E
 FullName:	E
 Color:	4
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2225	1825
 Table:	Tables/E.csv
@@ -56,7 +56,7 @@ AbrevName:	off
 FullName:	off
 Color:	5
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	1825	1925
 Table:	Tables/off.csv
@@ -65,7 +65,7 @@ AbrevName:	G
 FullName:	G
 Color:	6
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	1925	1925
 Table:	Tables/G.csv
@@ -74,7 +74,7 @@ AbrevName:	F
 FullName:	F
 Color:	7
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2025	1925
 Table:	Tables/F.csv
@@ -83,7 +83,7 @@ AbrevName:	H
 FullName:	H
 Color:	8
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2125	1925
 Table:	Tables/H.csv
@@ -92,7 +92,7 @@ AbrevName:	I
 FullName:	I
 Color:	9
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2225	1925
 Table:	Tables/I.csv
@@ -101,7 +101,7 @@ AbrevName:	J
 FullName:	J
 Color:	10
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	1825	2025
 Table:	Tables/J.csv
@@ -110,7 +110,7 @@ AbrevName:	L
 FullName:	L
 Color:	11
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	1925	2025
 Table:	Tables/L.csv
@@ -119,7 +119,7 @@ AbrevName:	K
 FullName:	K
 Color:	12
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2025	2025
 Table:	Tables/K.csv
@@ -128,7 +128,7 @@ AbrevName:	N
 FullName:	N
 Color:	13
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2125	2025
 Table:	Tables/N.csv
@@ -137,7 +137,7 @@ AbrevName:	M
 FullName:	M
 Color:	14
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2225	2025
 Table:	Tables/M.csv
@@ -146,7 +146,7 @@ AbrevName:	P
 FullName:	P
 Color:	0
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	1825	2125
 Table:	Tables/P.csv
@@ -155,7 +155,7 @@ AbrevName:	O
 FullName:	O
 Color:	1
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	1925	2125
 Table:	Tables/O.csv
@@ -164,7 +164,7 @@ AbrevName:	R
 FullName:	R
 Color:	2
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2025	2125
 Table:	Tables/R.csv
@@ -173,7 +173,7 @@ AbrevName:	Q
 FullName:	Q
 Color:	3
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2125	2125
 Table:	Tables/Q.csv
@@ -182,7 +182,7 @@ AbrevName:	T
 FullName:	T
 Color:	4
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2225	2125
 Table:	Tables/T.csv
@@ -191,7 +191,7 @@ AbrevName:	S
 FullName:	S
 Color:	5
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	1825	2225
 Table:	Tables/S.csv
@@ -200,7 +200,7 @@ AbrevName:	V
 FullName:	V
 Color:	6
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	1925	2225
 Table:	Tables/V.csv
@@ -209,7 +209,7 @@ AbrevName:	U
 FullName:	U
 Color:	7
 Shape:	1
-Radius:	20.0
+Radius:	24.25
 States:	2	low	high
 Loc:	2025	2225
 Table:	Tables/U.csv
@@ -222,14 +222,14 @@ End:	B
 Name:	upregulates
 Weight:	0.0
 Color:	0
-2	Anchors:	1825	1825	2025	1825
+2	Anchors:	1825	1825	2024	1829
 
 Start:	C
 End:	B
 Name:	upregulates
 Weight:	0.0
 Color:	1
-2	Anchors:	1925	1825	2025	1825
+2	Anchors:	1925	1825	2024	1829
 
 Start:	C
 End:	D
