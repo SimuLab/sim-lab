@@ -21,9 +21,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JToggleButton;
 
 import bmv.Node.SHAPE;
@@ -64,10 +67,11 @@ public class EditPanel extends BMVPanel {
 	private EDIT_MODE editMode;
 	private boolean multiJointed;
 	private int drawingColor;
+	private JPopupMenu rightClickNodeMenu, rightClickEdgeMenu;
 
 	/**
-	 * PRE: model, port, trajectory, and pLayer are defined
-	 * POST: this object has been initialized
+	 * PRE: model, port, trajectory, and pLayer are defined POST: this object
+	 * has been initialized
 	 * 
 	 * @param model
 	 * @param port
@@ -85,6 +89,7 @@ public class EditPanel extends BMVPanel {
 	protected void initialize() {
 
 		super.initialize();
+		initializeRightClickMenus();
 		bg = new ImageIcon("Resources/Images/bgEdit.png");
 		setPreferredSize(START_SIZE);
 		editMode = EDIT_MODE.NONE;
@@ -94,9 +99,129 @@ public class EditPanel extends BMVPanel {
 		nodeDrag = NOTHING;
 		partialEdge = null;
 		edgeType = 0;
-		multiJointed = true;
+		multiJointed = false;
 		drawingColor = 0;
 
+	}
+
+	/**
+	 * PRE: POST: the popup menu for right clicking on a node has been
+	 * initialized
+	 */
+	private void initializeRightClickMenus() {
+		rightClickNodeMenu = new JPopupMenu();
+
+		// Edit Name
+		JMenuItem item = new JMenuItem("Edit Name");
+		item.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resetToggles();
+				editName(model.getNodes().get(nodeSelected).getPixPos());
+			}
+		});
+		rightClickNodeMenu.add(item);
+
+		// Edit Color
+		item = new JMenuItem("Edit Color");
+		item.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resetToggles();
+				editColor(model.getNodes().get(nodeSelected).getPixPos());
+			}
+		});
+		rightClickNodeMenu.add(item);
+
+		// Edit States
+		item = new JMenuItem("Edit States");
+		item.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resetToggles();
+				editStates(model.getNodes().get(nodeSelected).getPixPos());
+			}
+		});
+		rightClickNodeMenu.add(item);
+
+		// Edit Table
+		item = new JMenuItem("Edit Table");
+		item.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resetToggles();
+				layer.remove(nameDisplayPanel);
+				nameDisplayPanel = null;
+				editTable();
+			}
+		});
+		rightClickNodeMenu.add(item);
+
+		// Delete
+		item = new JMenuItem("Delete");
+		item.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resetToggles();
+				deleteNode(model.getNodes().get(nodeSelected));
+			}
+		});
+		rightClickNodeMenu.add(item);
+
+		rightClickEdgeMenu = new JPopupMenu();
+
+		// Edit Name
+		item = new JMenuItem("Edit Name");
+		item.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resetToggles();
+				editName(model.getEdges().get(edgeSelected).getStart()
+						.getPixPos());
+			}
+		});
+		rightClickEdgeMenu.add(item);
+
+		// Show name
+		JCheckBoxMenuItem citem = new JCheckBoxMenuItem("Show Name");
+		citem.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				model.getEdges().get(edgeSelected).setDrawName(
+						arg0.getStateChange() == ItemEvent.SELECTED);
+			}
+		});
+		rightClickEdgeMenu.add(citem);
+
+		// Flip the type of edge: activator/inhibitor
+		item = new JMenuItem("Flip Type");
+		item.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				model.getEdges().get(edgeSelected).setType(
+						-model.getEdges().get(edgeSelected).getType(), true);
+			}
+		});
+		rightClickEdgeMenu.add(item);
+
+		// Delete edge
+		item = new JMenuItem("Delete");
+		item.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resetToggles();
+				deleteEdge(model.getEdges().get(edgeSelected));
+			}
+		});
+		rightClickEdgeMenu.add(item);
 	}
 
 	/**
@@ -192,7 +317,8 @@ public class EditPanel extends BMVPanel {
 
 		icon = new ImageIcon("Resources/icons/16/146.png");
 		JButton button = new JButton(icon);
-		button.setToolTipText("Run a full simulation of the model to find equilibrium points and cycles (R)");
+		button
+				.setToolTipText("Run a full simulation of the model to find equilibrium points and cycles (R)");
 		button.setMnemonic(KeyEvent.VK_R);
 		button.addActionListener(new ActionListener() {
 			@Override
@@ -206,7 +332,8 @@ public class EditPanel extends BMVPanel {
 		toolbar.add(button);
 
 		// ADD HELP
-		addHelp("This mode is used to change the model by adding/removing nodes and edges, editing the state-tables of nodes, moving nodes, and editing the appearance of nodes. Boxes can also be drawn to add to the visual organization of the model.\nThis mode also provides the capability to analyze the full model to find all stable equilibrium and oscillation points.",
+		addHelp(
+				"This mode is used to change the model by adding/removing nodes and edges, editing the state-tables of nodes, moving nodes, and editing the appearance of nodes. Boxes can also be drawn to add to the visual organization of the model.\nThis mode also provides the capability to analyze the full model to find all stable equilibrium and oscillation points.",
 				300, 150);
 
 		JMenu spacer = new JMenu();
@@ -221,16 +348,14 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: multiJointed is defined
-	 * POST: RV = multiJointed
+	 * PRE: multiJointed is defined POST: RV = multiJointed
 	 */
 	public boolean isMultiJointed() {
 		return multiJointed;
 	}
 
 	/**
-	 * PRE: multiJointed is defined
-	 * POST: multiJointed = multiJointed
+	 * PRE: multiJointed is defined POST: multiJointed = multiJointed
 	 */
 	public void setMultiJointed(boolean multiJointed) {
 		this.multiJointed = multiJointed;
@@ -358,8 +483,8 @@ public class EditPanel extends BMVPanel {
 			proc.destroy();
 
 			parent.updateBrowser();
-			parent.setNewResult(model.getModelName(),
-					outputName.substring(outputName.lastIndexOf('/') + 1), true);
+			parent.setNewResult(model.getModelName(), outputName
+					.substring(outputName.lastIndexOf('/') + 1), true);
 
 		} catch (Exception e) {
 			System.out.println("error");
@@ -398,13 +523,12 @@ public class EditPanel extends BMVPanel {
 					click.getPoint());
 
 			if (nodeClicked != NOTHING) {
-				partialEdge = new Edge(model.getNodes().get(nodeClicked),
-						port.frameToRealCoord(model.getNodes().get(nodeClicked)
+				partialEdge = new Edge(model.getNodes().get(nodeClicked), port
+						.frameToRealCoord(model.getNodes().get(nodeClicked)
 								.getPixPos()), model.getColors().get(
-								model.getNodes().get(nodeClicked)
-										.getColorChoice()), model.getNodes()
-								.get(nodeClicked).getColorChoice(), edgeType,
-						model.getCurModel(), multiJointed);
+						model.getNodes().get(nodeClicked).getColorChoice()),
+						model.getNodes().get(nodeClicked).getColorChoice(),
+						edgeType, model.getCurModel(), multiJointed);
 			}
 		} else {
 			int nodeClicked = model.getCurModel().getNodeClicked(
@@ -456,9 +580,9 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: drawingToDelete is defined
-	 * POST: the drawingToDelete has been removed from the model, button toggles
-	 * have been reset, and drawingSelected has been set to nothing
+	 * PRE: drawingToDelete is defined POST: the drawingToDelete has been
+	 * removed from the model, button toggles have been reset, and
+	 * drawingSelected has been set to nothing
 	 * 
 	 * @param drawingToDelete
 	 */
@@ -512,9 +636,8 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: click is defined
-	 * POST: sets the partial drawing's corner to the click, and adds the
-	 * drawing to the model
+	 * PRE: click is defined POST: sets the partial drawing's corner to the
+	 * click, and adds the drawing to the model
 	 * 
 	 * @param click
 	 */
@@ -567,8 +690,8 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: loc is defined
-	 * POST: popup the NamePanel next to the node or edge selected to edit
+	 * PRE: loc is defined POST: popup the NamePanel next to the node or edge
+	 * selected to edit
 	 * 
 	 * @param loc
 	 */
@@ -588,8 +711,8 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: loc is defined
-	 * POST: popup the StatesPanel next to the node selected to edit
+	 * PRE: loc is defined POST: popup the StatesPanel next to the node selected
+	 * to edit
 	 * 
 	 * @param loc
 	 */
@@ -603,21 +726,20 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: loc is defined
-	 * POST: pops up the editVocab panel at loc for the number of states of
-	 * nodeSelected
+	 * PRE: loc is defined POST: pops up the editVocab panel at loc for the
+	 * number of states of nodeSelected
 	 * 
 	 * @param loc
 	 */
 	private void editVocab(Point loc) {
 		if (partialNode != null) {
-			vocabPanel = new VocabPanel(new Point(loc.x, loc.y), this,
-					model.getVocab(), partialNode.getNumStates());
+			vocabPanel = new VocabPanel(new Point(loc.x, loc.y), this, model
+					.getVocab(), partialNode.getNumStates());
 		} else if (nodeSelected != NOTHING
 				&& nodeSelected < model.getNodes().size()) {
-			vocabPanel = new VocabPanel(new Point(loc.x, loc.y), this,
-					model.getVocab(), model.getNodes().get(nodeSelected)
-							.getNumStates());
+			vocabPanel = new VocabPanel(new Point(loc.x, loc.y), this, model
+					.getVocab(), model.getNodes().get(nodeSelected)
+					.getNumStates());
 		}
 		nudgePanel(vocabPanel);
 		vocabPanel.setOpaque(true);
@@ -642,8 +764,7 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: nodes[nodeSelected] is defined
-	 * POST: nodes[nodeSelected]'s name is
+	 * PRE: nodes[nodeSelected] is defined POST: nodes[nodeSelected]'s name is
 	 * changed based on user input
 	 */
 	protected void chooseNodeName(String newAbrevName, String newFullName) {
@@ -656,13 +777,12 @@ public class EditPanel extends BMVPanel {
 			} else if (nodeSelected < model.getNodes().size()) {
 				if (newAbrevName != null) {
 					if (newAbrevName.equalsIgnoreCase("")) {
-						model.getNodes().get(nodeSelected)
-								.setNames("?", "Unnamed");
+						model.getNodes().get(nodeSelected).setNames("?",
+								"Unnamed");
 					} else {
-						model.getNodes()
-								.get(nodeSelected)
-								.setNames(newAbrevName.replace(' ', '_'),
-										newFullName.replace(' ', '_'));
+						model.getNodes().get(nodeSelected).setNames(
+								newAbrevName.replace(' ', '_'),
+								newFullName.replace(' ', '_'));
 					}
 				}
 			}
@@ -676,8 +796,7 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: nodes[nodeSelected] is defined
-	 * POST: nodes[nodeSelected]'s name is
+	 * PRE: nodes[nodeSelected] is defined POST: nodes[nodeSelected]'s name is
 	 * changed based on user input
 	 */
 	protected void chooseEdgeName(String newName) {
@@ -687,8 +806,8 @@ public class EditPanel extends BMVPanel {
 				if (newName.equalsIgnoreCase("")) {
 					model.getEdges().get(edgeSelected).setName("regulates");
 				} else {
-					model.getEdges().get(edgeSelected)
-							.setName(newName.replace(' ', '_'));
+					model.getEdges().get(edgeSelected).setName(
+							newName.replace(' ', '_'));
 				}
 			}
 			resetToggles();
@@ -721,8 +840,8 @@ public class EditPanel extends BMVPanel {
 				&& nodeSelected != NOTHING) {
 			if (colorChoice != -1) {
 				model.getNodes().get(nodeSelected).setColorChoice(colorChoice);
-				model.getNodes().get(nodeSelected)
-						.setShape(SHAPE.values()[shapeChoice]);
+				model.getNodes().get(nodeSelected).setShape(
+						SHAPE.values()[shapeChoice]);
 			}
 		}
 		layer.remove(colorPanel);
@@ -757,12 +876,10 @@ public class EditPanel extends BMVPanel {
 
 	/**
 	 * PRE: numberOfStates and nodeSelected are defined and nodeSelected is a
-	 * valid node index
-	 * POST: if numberOfStates != -1, nodeSelected has been set to the number of
-	 * states specified by
-	 * NumberOfStates and the editVocab panel has been popped up
-	 * Otherwise, nothing changes.
-	 * The statepanel is popped down
+	 * valid node index POST: if numberOfStates != -1, nodeSelected has been set
+	 * to the number of states specified by NumberOfStates and the editVocab
+	 * panel has been popped up Otherwise, nothing changes. The statepanel is
+	 * popped down
 	 * 
 	 * @param numberOfStates
 	 */
@@ -789,10 +906,9 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: newVocab is defined
-	 * POST: if newVocab is null nothing happens but the panel is popped down.
-	 * Otherwise, nodeSelected or partial node has its termsUsed changed to
-	 * newVocab
+	 * PRE: newVocab is defined POST: if newVocab is null nothing happens but
+	 * the panel is popped down. Otherwise, nodeSelected or partial node has its
+	 * termsUsed changed to newVocab
 	 * 
 	 * @param newVocab
 	 */
@@ -814,8 +930,7 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE:
-	 * POST: RV = true if all popup panels are null, false otherwise
+	 * PRE: POST: RV = true if all popup panels are null, false otherwise
 	 */
 	private void popupDown() {
 		popupUp = (colorPanel != null || statePanel != null
@@ -823,9 +938,8 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE:
-	 * POST: sets all _Selected variables to NOTHING and sets Selected to false
-	 * for any node, edge, or drawing that was selected
+	 * PRE: POST: sets all _Selected variables to NOTHING and sets Selected to
+	 * false for any node, edge, or drawing that was selected
 	 */
 	private void deselect() {
 		if (nodeSelected != NOTHING && nodeSelected < model.getNodes().size()) {
@@ -844,8 +958,8 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: toggle buttons are defined
-	 * POST: all toggle buttons have been set to off
+	 * PRE: toggle buttons are defined POST: all toggle buttons have been set to
+	 * off
 	 */
 	private void resetToggles() {
 		partialNode = null;
@@ -877,10 +991,10 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: buttonPressed is defined
-	 * POST: if buttonPressed is the index of a toggleButton in this component,
-	 * it is toggled, all other toggle buttons are switched to off. All partial
-	 * variables are set to null (drawings, nodes, edges), and zoom is reset
+	 * PRE: buttonPressed is defined POST: if buttonPressed is the index of a
+	 * toggleButton in this component, it is toggled, all other toggle buttons
+	 * are switched to off. All partial variables are set to null (drawings,
+	 * nodes, edges), and zoom is reset
 	 * 
 	 * @param buttonPressed
 	 */
@@ -924,9 +1038,9 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: nodeToSelect is defined and < |nodes|
-	 * POST: nodeSelected = nodeToSelect, nodes[nodeToSelect] is set to
-	 * selected, and everything else has been deselected
+	 * PRE: nodeToSelect is defined and < |nodes| POST: nodeSelected =
+	 * nodeToSelect, nodes[nodeToSelect] is set to selected, and everything else
+	 * has been deselected
 	 * 
 	 * @param nodeToSelect
 	 */
@@ -937,9 +1051,9 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: edgeToSelect is defined and < |edges|
-	 * POST: edgeSelected = edgeToSelect, edges[edgeToSelect] is set to
-	 * selected, and everything else has been deselected
+	 * PRE: edgeToSelect is defined and < |edges| POST: edgeSelected =
+	 * edgeToSelect, edges[edgeToSelect] is set to selected, and everything else
+	 * has been deselected
 	 * 
 	 * @param edgeToSelect
 	 */
@@ -950,10 +1064,9 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: drawingToSelect is defined and < |drawings|
-	 * POST: drawingSelected = drawingToSelect, drawings[drawingToSelect] is set
-	 * to
-	 * selected, and everything else has been deselected
+	 * PRE: drawingToSelect is defined and < |drawings| POST: drawingSelected =
+	 * drawingToSelect, drawings[drawingToSelect] is set to selected, and
+	 * everything else has been deselected
 	 * 
 	 * @param drawingToSelect
 	 */
@@ -977,8 +1090,16 @@ public class EditPanel extends BMVPanel {
 				deselect();
 				clicked = i;
 				selectEdge(clicked);
-				if (editMode == EDIT_MODE.DELETING) {
-					deleteEdge(model.getEdges().get(clicked));
+				if (click.getButton() == MouseEvent.BUTTON1) {
+					if (editMode == EDIT_MODE.DELETING) {
+						deleteEdge(model.getEdges().get(clicked));
+					}
+				} else if (click.getButton() == MouseEvent.BUTTON3) {
+					((JCheckBoxMenuItem) rightClickEdgeMenu.getComponent(1))
+							.setSelected(model.getEdges().get(edgeSelected)
+									.isDrawName());
+					rightClickEdgeMenu.show(this, click.getPoint().x, click
+							.getPoint().y);
 				}
 			}
 		}
@@ -988,8 +1109,8 @@ public class EditPanel extends BMVPanel {
 
 	/**
 	 * PRE: click has been defined, drawings has been defined POST: if click
-	 * fell
-	 * within any drawing then that drawing has been set as the selected drawing
+	 * fell within any drawing then that drawing has been set as the selected
+	 * drawing
 	 * 
 	 * @param click
 	 * @return
@@ -1023,11 +1144,16 @@ public class EditPanel extends BMVPanel {
 		clicked = getNodeClicked(click);
 		if (clicked != NOTHING) {
 			selectNode(clicked);
-			if (editMode == EDIT_MODE.DELETING) {
-				deleteNode(model.getNodes().get(clicked));
-				nodeSelected = NOTHING;
-			} else if (click.getButton() == MouseEvent.BUTTON1) {
-				editTable();
+			if (click.getButton() == MouseEvent.BUTTON1) {
+				if (editMode == EDIT_MODE.DELETING) {
+					deleteNode(model.getNodes().get(clicked));
+					nodeSelected = NOTHING;
+				} else if (click.getButton() == MouseEvent.BUTTON1) {
+					editTable();
+				}
+			} else if (click.getButton() == MouseEvent.BUTTON3) {
+				rightClickNodeMenu.show(this, click.getPoint().x, click
+						.getPoint().y);
 			}
 		}
 		return clicked;
@@ -1075,9 +1201,8 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: the addNode button has been defined
-	 * POST: the button has been toggled and, if on, mode has been set to
-	 * ADDING_NODE
+	 * PRE: the addNode button has been defined POST: the button has been
+	 * toggled and, if on, mode has been set to ADDING_NODE
 	 */
 	public void addNodeClicked() {
 		toggle(ADD_NODE_BUTTON);
@@ -1089,9 +1214,9 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: the addActEdge button has been defined
-	 * POST: the button has been toggled and, if on, mode has been set to
-	 * ADDING_EDGE and edgeType set to ACTIVATING
+	 * PRE: the addActEdge button has been defined POST: the button has been
+	 * toggled and, if on, mode has been set to ADDING_EDGE and edgeType set to
+	 * ACTIVATING
 	 */
 	public void addActEdgeClicked() {
 		if (edgeSelected != NOTHING) {
@@ -1113,9 +1238,9 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: the addAInhEdge button has been defined
-	 * POST: the button has been toggled and, if on, mode has been set to
-	 * ADDING_EDGE and edgeType set to INHIBITING
+	 * PRE: the addAInhEdge button has been defined POST: the button has been
+	 * toggled and, if on, mode has been set to ADDING_EDGE and edgeType set to
+	 * INHIBITING
 	 */
 	public void addInhEdgeClicked() {
 		if (edgeSelected != NOTHING) {
@@ -1137,10 +1262,9 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: the delete button has been defined
-	 * POST: the button has been toggled and, if on, mode has been set to
-	 * DELETE, if there was something selected then it has been deleted and mode
-	 * set back to NONE
+	 * PRE: the delete button has been defined POST: the button has been toggled
+	 * and, if on, mode has been set to DELETE, if there was something selected
+	 * then it has been deleted and mode set back to NONE
 	 */
 	public void deleteClicked() {
 		toggle(DELETE_BUTTON);
@@ -1159,9 +1283,8 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: the editName button has been defined
-	 * POST: the popup for editing a name has been popped up if there is an edge
-	 * or node selected
+	 * PRE: the editName button has been defined POST: the popup for editing a
+	 * name has been popped up if there is an edge or node selected
 	 */
 	public void editNameClicked() {
 		resetToggles();
@@ -1173,9 +1296,8 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: the editColor button has been defined
-	 * POST: the popup for editing a color/shape has been popped up if there is
-	 * a node selected
+	 * PRE: the editColor button has been defined POST: the popup for editing a
+	 * color/shape has been popped up if there is a node selected
 	 */
 	public void editColorClicked() {
 		resetToggles();
@@ -1183,9 +1305,8 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: the editStates button has been defined
-	 * POST: the popup for editing states has been popped up if there is
-	 * a node selected
+	 * PRE: the editStates button has been defined POST: the popup for editing
+	 * states has been popped up if there is a node selected
 	 */
 	public void editStatesClicked() {
 		resetToggles();
@@ -1193,8 +1314,8 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: the draw button has been defined
-	 * POST: mode has been switched to DRAWING
+	 * PRE: the draw button has been defined POST: mode has been switched to
+	 * DRAWING
 	 */
 	public void drawClicked() {
 		toggle(DRAW_BUTTON);
@@ -1206,8 +1327,8 @@ public class EditPanel extends BMVPanel {
 	}
 
 	/**
-	 * PRE: the simulateModel button has been clicked
-	 * POST: the model has been simulated
+	 * PRE: the simulateModel button has been clicked POST: the model has been
+	 * simulated
 	 */
 	public void simulateModelClicked() {
 		resetToggles();
@@ -1225,8 +1346,8 @@ public class EditPanel extends BMVPanel {
 				}
 				if (nodeDrag != NOTHING) {
 					model.setChangesMade(true);
-					model.getNodes().get(nodeDrag)
-							.setRealPos(port.frameToRealCoord(e.getPoint()));
+					model.getNodes().get(nodeDrag).setRealPos(
+							port.frameToRealCoord(e.getPoint()));
 				} else {
 					Point changeInRealCoords = port.frameToRealCoord(new Point(
 							oldMouse.x - e.getPoint().x, oldMouse.y
@@ -1251,8 +1372,8 @@ public class EditPanel extends BMVPanel {
 		boolean acted = super.moved(e);
 		if (!acted) {
 			if (editMode == EDIT_MODE.ADDING_EDGE && partialEdge != null) {
-				partialEdge
-						.changeLastAnchor(port.frameToRealCoord(e.getPoint()));
+				partialEdge.changeLastAnchor(port
+						.frameToRealCoord(e.getPoint()));
 			} else if (editMode == EDIT_MODE.DRAG_DRAWING) {
 				if (partialDrawing == null) {
 					editMode = EDIT_MODE.NONE;

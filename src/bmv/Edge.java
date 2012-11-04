@@ -7,10 +7,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
@@ -45,10 +46,8 @@ public class Edge {
 	private boolean drawName, forcedType;
 
 	/**
-	 * DEFAULT CONSTRUCTOR
-	 * PRE:
-	 * POST: this object has been initialized with lots of default values and
-	 * nulls
+	 * DEFAULT CONSTRUCTOR PRE: POST: this object has been initialized with lots
+	 * of default values and nulls
 	 */
 	public Edge() {
 		initialize(null, null, 1, null, null, 0, "", -1, null, false, false);
@@ -57,23 +56,22 @@ public class Edge {
 	/**
 	 * NOTE: even though this creates a deep copy of the Edge, that does not
 	 * mean the start and end nodes will identify this object, they will still
-	 * point to orig
-	 * PRE: orig is defined
-	 * POST: this object is a deep copy of orig
+	 * point to orig PRE: orig is defined POST: this object is a deep copy of
+	 * orig
 	 * 
 	 * @param orig
 	 */
 	public Edge(Edge orig) {
-		initialize(orig.getStart(), orig.getEnd(), orig.getWeight(),
-				orig.getAnchors(), orig.getLineColor(), orig.getColorChoice(),
-				orig.getName(), orig.getThickness(), orig.getContext(),
-				orig.isMultiJointed(), orig.forcedType);
+		initialize(orig.getStart(), orig.getEnd(), orig.getWeight(), orig
+				.getAnchors(), orig.getLineColor(), orig.getColorChoice(), orig
+				.getName(), orig.getThickness(), orig.getContext(), orig
+				.isMultiJointed(), orig.forcedType);
 	}
 
 	/**
 	 * PRE: pStart, pEnd, pAnchors, pColor, colorChoice, pName, pContext, and
-	 * multijointed are defined.
-	 * POST: this edge has been initialized based off of these parameters
+	 * multijointed are defined. POST: this edge has been initialized based off
+	 * of these parameters
 	 * 
 	 * @param pStart
 	 * @param pEnd
@@ -93,8 +91,8 @@ public class Edge {
 
 	/**
 	 * PRE: pStart, pEnd, pAnchors, pColor, colorChoice, pName, pThickness,
-	 * pContext, and multijointed are defined.
-	 * POST: this edge has been initialized based off of these parameters
+	 * pContext, and multijointed are defined. POST: this edge has been
+	 * initialized based off of these parameters
 	 * 
 	 * @param pStart
 	 * @param pEnd
@@ -115,9 +113,8 @@ public class Edge {
 
 	/**
 	 * PRE: pStart, pEnd, pAnchors, pColor, colorChoice, pWeight, pName,
-	 * pContext, and
-	 * multijointed are defined.
-	 * POST: this edge has been initialized based off of these parameters
+	 * pContext, and multijointed are defined. POST: this edge has been
+	 * initialized based off of these parameters
 	 * 
 	 * @param pStart
 	 * @param pEnd
@@ -138,10 +135,8 @@ public class Edge {
 
 	/**
 	 * PRE: pStart, pEnd, pWeight, pAnchors, pColor, colorChoice, pThickness,
-	 * pName,
-	 * pContext, and
-	 * multijointed are defined.
-	 * POST: this edge has been initialized based off of these parameters
+	 * pName, pContext, and multijointed are defined. POST: this edge has been
+	 * initialized based off of these parameters
 	 * 
 	 * @param pStart
 	 * @param pEnd
@@ -163,8 +158,8 @@ public class Edge {
 
 	/**
 	 * PRE: pStart, pEnd, pWeight, pColor, colorChoice, pName, pContext, and
-	 * multijointed are defined.
-	 * POST: this edge has been initialized based off of these parameters
+	 * multijointed are defined. POST: this edge has been initialized based off
+	 * of these parameters
 	 * 
 	 * @param pStart
 	 * @param startPoint
@@ -185,9 +180,8 @@ public class Edge {
 
 	/**
 	 * PRE: pStart, pEnd, pWeight, pThickness, pColor, colorChoice, pName,
-	 * pContext, and
-	 * multijointed are defined.
-	 * POST: this edge has been initialized based off of these parameters
+	 * pContext, and multijointed are defined. POST: this edge has been
+	 * initialized based off of these parameters
 	 * 
 	 * @param pStart
 	 * @param startPoint
@@ -209,10 +203,9 @@ public class Edge {
 
 	/**
 	 * PRE: pStart, pEnd, pAnchors, pWeight, pThickness, pColor, colorChoice,
-	 * pName, pContext, and
-	 * multijointed are defined.
-	 * POST: this edge has been initialized based off of these parameters,
-	 * pixAnchors have been built, nameVariables have been initialized
+	 * pName, pContext, and multijointed are defined. POST: this edge has been
+	 * initialized based off of these parameters, pixAnchors have been built,
+	 * nameVariables have been initialized
 	 * 
 	 * @param pStart
 	 * @param pEnd
@@ -257,8 +250,8 @@ public class Edge {
 		} else {
 			lineColor = pColor;
 		}
-		thickness = (int) (Math.min(port.getScaleFactor()[0],
-				port.getScaleFactor()[1]) * THICKNESS_COEF);
+		thickness = (int) (Math.min(port.getScaleFactor()[0], port
+				.getScaleFactor()[1]) * THICKNESS_COEF);
 		// thickness = 1;
 
 		buildPixAnchors();
@@ -269,9 +262,8 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: name and pixAnchors are defined
-	 * POST: the nameFont has been initialized based off name and angle of the
-	 * line segment
+	 * PRE: name and pixAnchors are defined POST: the nameFont has been
+	 * initialized based off name and angle of the line segment
 	 */
 	private void initializeName() {
 		if (end != null) {
@@ -317,22 +309,21 @@ public class Edge {
 
 	/**
 	 * PRE: context.context.getDivSize() is defined, end is defined, and anchors
-	 * are defined
-	 * POST: pixAnchors is redefined based on the division size of the panel
-	 * context and the head is adjusted based on position of end
+	 * are defined POST: pixAnchors is redefined based on the division size of
+	 * the panel context and the head is adjusted based on position of end
 	 */
 	public void resize() {
-		thickness = (int) (Math.min(port.getScaleFactor()[0],
-				port.getScaleFactor()[1]) * THICKNESS_COEF);
+		thickness = (int) (Math.min(port.getScaleFactor()[0], port
+				.getScaleFactor()[1]) * THICKNESS_COEF);
 		// thickness = Math.min(context.getDivSize().width,
 		// context.getDivSize().height) / 5;
 		buildPixAnchors();
 	}
 
 	/**
-	 * PRE: anchors, thickness ,and context are defined
-	 * POST: rects is initialized to a list of rectangles representing the lines
-	 * to be drawn, in pixel coordinates
+	 * PRE: anchors, thickness ,and context are defined POST: rects is
+	 * initialized to a list of rectangles representing the lines to be drawn,
+	 * in pixel coordinates
 	 */
 	protected void buildPixAnchors() {
 		pixAnchors = new ArrayList<Point>(anchors.size());
@@ -342,14 +333,10 @@ public class Edge {
 				int xDiff = anchors.get(anchors.size() - 1).x
 						- anchors.get(anchors.size() - 2).x;
 				if (xDiff != 0) {
-					anchors.set(
-							anchors.size() - 2,
-							new Point(anchors.get(anchors.size() - 2).x, end
-									.getRealPos().y));
-					anchors.set(
-							anchors.size() - 1,
-							new Point(anchors.get(anchors.size() - 1).x, end
-									.getRealPos().y));
+					anchors.set(anchors.size() - 2, new Point(anchors
+							.get(anchors.size() - 2).x, end.getRealPos().y));
+					anchors.set(anchors.size() - 1, new Point(anchors
+							.get(anchors.size() - 1).x, end.getRealPos().y));
 				} else {
 					anchors.set(anchors.size() - 1, new Point(
 							end.getRealPos().x,
@@ -406,96 +393,29 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: click and rects are defined
-	 * POST: RV = true if the point of click falls within the bounds of any
-	 * rectangle in this edge
+	 * PRE: click and rects are defined POST: RV = true if the point of click
+	 * falls within the bounds of any rectangle in this edge
 	 * 
 	 * @param click
 	 * @return
 	 */
 	public boolean clicked(MouseEvent click) {
 		boolean clicked = false;
-		Point clickPoint = click.getPoint();
-		Rectangle colBox;
-		if (multiJointed) {
-			for (int i = 0; !clicked && i < pixAnchors.size() - 1; i++) {
-				colBox = new Rectangle(Math.min(pixAnchors.get(i).x,
-						pixAnchors.get(i + 1).x), Math.min(pixAnchors.get(i).y,
-						pixAnchors.get(i + 1).y), Math.abs(pixAnchors.get(i).x
-						- pixAnchors.get(i + 1).x),
-						Math.abs(pixAnchors.get(i).y - pixAnchors.get(i + 1).y));
-				clicked = !(clickPoint.x < colBox.x - thickness
-						|| clickPoint.x > colBox.x + thickness + colBox.width
-						|| clickPoint.y < colBox.y - thickness || clickPoint.y > colBox.y
-						+ thickness + colBox.height);
-			}
-		} else {
-			double yCollision = 0;
-			if (lineAngle != Double.MAX_VALUE) {
-				yCollision = click.getPoint().x * lineAngle + intercept;
-			} else {
-				yCollision = clickPoint.y;
-			}
-			clicked = (Math.abs(yCollision - clickPoint.y) < 10)
-					&& withinBounds(clickPoint);
-			if (!clicked) {
-				if (nameAngle != Math.PI / 2) {
-					yCollision = click.getPoint().x * Math.tan(nameAngle)
-							+ intercept;
-				} else {
-					yCollision = clickPoint.y;
-				}
-				clicked = (Math.abs(yCollision - clickPoint.y) < Math
-						.abs(2 * lineAngle)) && withinBounds(clickPoint);
-			}
 
+		Line2D.Double line;
+
+		for (int i = 0; !clicked && i < pixAnchors.size() - 1; i++) {
+
+			line = new Line2D.Double(pixAnchors.get(i), pixAnchors.get(i + 1));
+			clicked = line.intersects(new Rectangle2D.Double(
+					click.getPoint().x - 5, click.getPoint().y - 5, 10, 10));
 		}
+
 		return clicked;
 	}
 
 	/**
-	 * PRE: point is defined, pixAnchors are defined
-	 * POST: RV = true if point is within FUDGE_FACTOR of the bounding box of
-	 * point1 and point2 on the line
-	 * 
-	 * @param point
-	 * @return
-	 */
-	private boolean withinBounds(Point point) {
-		boolean within = false;
-
-		if (pixAnchors.get(0).x > pixAnchors.get(1).x) {
-			if (pixAnchors.get(0).y > pixAnchors.get(1).y) {
-				within = (point.x <= pixAnchors.get(0).x + FUDGEFACTOR
-						&& point.x >= pixAnchors.get(1).x - FUDGEFACTOR
-						&& point.y <= pixAnchors.get(0).y + FUDGEFACTOR && point.y >= pixAnchors
-						.get(1).y - FUDGEFACTOR);
-			} else {
-				within = (point.x <= pixAnchors.get(0).x + FUDGEFACTOR
-						&& point.x >= pixAnchors.get(1).x - FUDGEFACTOR
-						&& point.y <= pixAnchors.get(1).y + FUDGEFACTOR && point.y >= pixAnchors
-						.get(0).y - FUDGEFACTOR);
-			}
-		} else {
-			if (pixAnchors.get(0).y > pixAnchors.get(1).y) {
-				within = (point.x <= pixAnchors.get(1).x + FUDGEFACTOR
-						&& point.x >= pixAnchors.get(0).x - FUDGEFACTOR
-						&& point.y <= pixAnchors.get(0).y + FUDGEFACTOR && point.y >= pixAnchors
-						.get(1).y - FUDGEFACTOR);
-			} else {
-				within = (point.x <= pixAnchors.get(1).x + FUDGEFACTOR
-						&& point.x >= pixAnchors.get(0).x - FUDGEFACTOR
-						&& point.y <= pixAnchors.get(1).y + FUDGEFACTOR && point.y >= pixAnchors
-						.get(0).y - FUDGEFACTOR);
-			}
-		}
-
-		return within;
-	}
-
-	/**
-	 * PRE: g is defined
-	 * POST: this Edge is painted to g
+	 * PRE: g is defined POST: this Edge is painted to g
 	 * 
 	 * @param g
 	 */
@@ -510,15 +430,15 @@ public class Edge {
 			g.setColor(Color.white);
 			g2.setStroke(b2);
 			for (int i = 0; i < pixAnchors.size() - 1; i++) {
-				g.drawLine(pixAnchors.get(i).x, pixAnchors.get(i).y,
-						pixAnchors.get(i + 1).x, pixAnchors.get(i + 1).y);
+				g.drawLine(pixAnchors.get(i).x, pixAnchors.get(i).y, pixAnchors
+						.get(i + 1).x, pixAnchors.get(i + 1).y);
 			}
 			g.setColor(lineColor);
 			g2.setStroke(b1);
 		}
 		for (int i = 0; i < pixAnchors.size() - 1; i++) {
-			g.drawLine(pixAnchors.get(i).x, pixAnchors.get(i).y,
-					pixAnchors.get(i + 1).x, pixAnchors.get(i + 1).y);
+			g.drawLine(pixAnchors.get(i).x, pixAnchors.get(i).y, pixAnchors
+					.get(i + 1).x, pixAnchors.get(i + 1).y);
 
 		}
 		if (head != null) {
@@ -536,8 +456,8 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: g and this edge are defined
-	 * POST: this edge has been painted to g as a black line
+	 * PRE: g and this edge are defined POST: this edge has been painted to g as
+	 * a black line
 	 * 
 	 * @param g
 	 */
@@ -549,8 +469,8 @@ public class Edge {
 		g2.setStroke(b1);
 
 		for (int i = 0; i < pixAnchors.size() - 1; i++) {
-			g.drawLine(pixAnchors.get(i).x, pixAnchors.get(i).y,
-					pixAnchors.get(i + 1).x, pixAnchors.get(i + 1).y);
+			g.drawLine(pixAnchors.get(i).x, pixAnchors.get(i).y, pixAnchors
+					.get(i + 1).x, pixAnchors.get(i + 1).y);
 
 		}
 		if (head != null) {
@@ -568,8 +488,7 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: pAnchors is defined
-	 * POST: anchors is a deep copy of pAnchors
+	 * PRE: pAnchors is defined POST: anchors is a deep copy of pAnchors
 	 * 
 	 * @param pAnchors
 	 */
@@ -582,9 +501,8 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: newAnchor is defined
-	 * POST: newAnchor has been added to anchors and pix anchors have been
-	 * rebuilt
+	 * PRE: newAnchor is defined POST: newAnchor has been added to anchors and
+	 * pix anchors have been rebuilt
 	 * 
 	 * @param newAnchor
 	 */
@@ -594,10 +512,10 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: newAnchor is defined, anchors is defined and is of length >= 2
-	 * POST: the last entry in anchors is changed to be a point with one
-	 * component from newAnchor and one component from the second-to-last
-	 * vector, chosen to form the longest axis-oriented line
+	 * PRE: newAnchor is defined, anchors is defined and is of length >= 2 POST:
+	 * the last entry in anchors is changed to be a point with one component
+	 * from newAnchor and one component from the second-to-last vector, chosen
+	 * to form the longest axis-oriented line
 	 * 
 	 * @param newAnchor
 	 */
@@ -620,15 +538,15 @@ public class Edge {
 				newLast = newAnchor;
 			}
 			anchors.set(anchors.size() - 1, newLast);
-			pixAnchors.set(pixAnchors.size() - 1,
-					port.realToFrameCoord(anchors.get(anchors.size() - 1)));
+			pixAnchors.set(pixAnchors.size() - 1, port.realToFrameCoord(anchors
+					.get(anchors.size() - 1)));
 
 		}
 	}
 
 	/**
-	 * PRE: anchors and pixAnchors are defined
-	 * POST: the highest index of anchors and pixAnchors is removed
+	 * PRE: anchors and pixAnchors are defined POST: the highest index of
+	 * anchors and pixAnchors is removed
 	 */
 	protected void removeLastAnchor() {
 		if (anchors.size() > 0 && pixAnchors.size() > 0) {
@@ -638,23 +556,22 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: start is defined
-	 * POST: changes the first anchor to match up with start's position
+	 * PRE: start is defined POST: changes the first anchor to match up with
+	 * start's position
 	 */
 	private void adjustStart() {
 		anchors.set(0, start.getRealPos());
 	}
 
 	/**
-	 * PRE: end is defined
-	 * POST: changes the head and last anchor to match up with end's position,
-	 * incase end has moved or been resized
+	 * PRE: end is defined POST: changes the head and last anchor to match up
+	 * with end's position, incase end has moved or been resized
 	 */
 	private void adjustEnd() {
 		anchors.set(anchors.size() - 1, end.getRealPos());
 		// Activating
 		if (type == ACTIVATING) {
-			int spacer = thickness * 5;
+			int spacer = thickness * 10;
 			int multipleEdgesInSpacing = spacer
 					* end.getInEdges().indexOf(this);
 
@@ -675,7 +592,7 @@ public class Edge {
 			// Arrow is pointing right
 			if (xDiff > 0 && ((Math.abs(xDiff) > Math.abs(yDiff)))) {
 				pixAnchors.set(pixAnchors.size() - 1, new Point(
-						end.getPixPos().x - (int) end.getScaledRad(),
+						end.getPixPos().x - (int) end.getScaledRad() - 10,
 						lastPoint.y));
 				lastPoint = pixAnchors.get(pixAnchors.size() - 1);
 
@@ -691,7 +608,7 @@ public class Edge {
 			// Arrow is pointing left
 			else if (xDiff < 0 && ((Math.abs(xDiff) > Math.abs(yDiff)))) {
 				pixAnchors.set(pixAnchors.size() - 1, new Point(
-						end.getPixPos().x + (int) end.getScaledRad(),
+						end.getPixPos().x + (int) end.getScaledRad() + 10,
 						lastPoint.y));
 				lastPoint = pixAnchors.get(pixAnchors.size() - 1);
 
@@ -707,7 +624,7 @@ public class Edge {
 			// Arrow is pointing down
 			else if (yDiff > 0) {
 				pixAnchors.set(pixAnchors.size() - 1, new Point(lastPoint.x,
-						end.getPixPos().y - (int) end.getScaledRad()));
+						end.getPixPos().y - (int) end.getScaledRad() - 10));
 				lastPoint = pixAnchors.get(pixAnchors.size() - 1);
 
 				arrowX = new int[] { lastPoint.x + perpendicularAxisPoints[0],
@@ -722,7 +639,7 @@ public class Edge {
 			// Arrow is pointing up
 			else {
 				pixAnchors.set(pixAnchors.size() - 1, new Point(lastPoint.x,
-						end.getPixPos().y + (int) end.getScaledRad()));
+						end.getPixPos().y + (int) end.getScaledRad() + 10));
 				lastPoint = pixAnchors.get(pixAnchors.size() - 1);
 
 				arrowX = new int[] { lastPoint.x + perpendicularAxisPoints[0],
@@ -739,7 +656,7 @@ public class Edge {
 		}
 		// Inhibiting
 		else if (type == INHIBITING) {
-			int spacer = thickness * 4;
+			int spacer = thickness * 8;
 
 			int multipleEdgesInSpacing = spacer
 					* end.getInEdges().indexOf(this);
@@ -763,7 +680,7 @@ public class Edge {
 			// Arrow is pointing right
 			if (xDiff > 0 && ((Math.abs(xDiff) > Math.abs(yDiff)))) {
 				pixAnchors.set(pixAnchors.size() - 1, new Point(
-						end.getPixPos().x - (int) end.getScaledRad(),
+						end.getPixPos().x - (int) end.getScaledRad() - 10,
 						lastPoint.y));
 				lastPoint = pixAnchors.get(pixAnchors.size() - 1);
 
@@ -781,7 +698,7 @@ public class Edge {
 			// Arrow is pointing left
 			else if (xDiff < 0 && ((Math.abs(xDiff) > Math.abs(yDiff)))) {
 				pixAnchors.set(pixAnchors.size() - 1, new Point(
-						end.getPixPos().x + (int) end.getScaledRad(),
+						end.getPixPos().x + (int) end.getScaledRad() + 10,
 						lastPoint.y));
 				lastPoint = pixAnchors.get(pixAnchors.size() - 1);
 
@@ -799,7 +716,7 @@ public class Edge {
 			// Arrow is pointing down
 			else if (yDiff > 0) {
 				pixAnchors.set(pixAnchors.size() - 1, new Point(lastPoint.x,
-						end.getPixPos().y - (int) end.getScaledRad()));
+						end.getPixPos().y - (int) end.getScaledRad() - 10));
 				lastPoint = pixAnchors.get(pixAnchors.size() - 1);
 
 				arrowX = new int[] { lastPoint.x + perpendicularAxisPoints[0],
@@ -816,7 +733,7 @@ public class Edge {
 			// Arrow is pointing up
 			else {
 				pixAnchors.set(pixAnchors.size() - 1, new Point(lastPoint.x,
-						end.getPixPos().y + (int) end.getScaledRad()));
+						end.getPixPos().y + (int) end.getScaledRad() + 10));
 				lastPoint = pixAnchors.get(pixAnchors.size() - 1);
 
 				arrowX = new int[] { lastPoint.x + perpendicularAxisPoints[0],
@@ -836,16 +753,14 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: start is defined
-	 * POST: RV = start
+	 * PRE: start is defined POST: RV = start
 	 */
 	public Node getStart() {
 		return start;
 	}
 
 	/**
-	 * PRE: start is defined
-	 * POST: start = start
+	 * PRE: start is defined POST: start = start
 	 */
 	public void setStart(Node start) {
 		this.start = start;
@@ -853,16 +768,14 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: end is defined
-	 * POST: RV = end
+	 * PRE: end is defined POST: RV = end
 	 */
 	public Node getEnd() {
 		return end;
 	}
 
 	/**
-	 * PRE: end is defined
-	 * POST: end = end
+	 * PRE: end is defined POST: end = end
 	 */
 	public void setEnd(Node end) {
 		this.end = end;
@@ -871,16 +784,14 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: anchors is defined
-	 * POST: RV = anchors
+	 * PRE: anchors is defined POST: RV = anchors
 	 */
 	public ArrayList<Point> getAnchors() {
 		return anchors;
 	}
 
 	/**
-	 * PRE: anchors is defined
-	 * POST: anchors = anchors
+	 * PRE: anchors is defined POST: anchors = anchors
 	 */
 	public void setAnchors(ArrayList<Point> anchors) {
 		this.anchors = anchors;
@@ -888,24 +799,21 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: lineColor is defined
-	 * POST: RV = lineColor
+	 * PRE: lineColor is defined POST: RV = lineColor
 	 */
 	public Color getLineColor() {
 		return lineColor;
 	}
 
 	/**
-	 * PRE: lineColor is defined
-	 * POST: lineColor = lineColor
+	 * PRE: lineColor is defined POST: lineColor = lineColor
 	 */
 	public void setLineColor(Color lineColor) {
 		this.lineColor = lineColor;
 	}
 
 	/**
-	 * PRE: type is defined
-	 * POST: RV = type
+	 * PRE: type is defined POST: RV = type
 	 */
 	public int getType() {
 		return type;
@@ -914,8 +822,8 @@ public class Edge {
 	/**
 	 * PRE: type is defined, forced is defined and determines whether this
 	 * edge's type can change with weighting or should always be displayed a
-	 * certain way
-	 * POST: if forced or not forcedType, type = type and forcedType = forced
+	 * certain way POST: if forced or not forcedType, type = type and forcedType
+	 * = forced
 	 */
 	public void setType(int type, boolean forced) {
 		if (forced || !forcedType) {
@@ -926,16 +834,14 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: context is defined
-	 * POST: RV = context
+	 * PRE: context is defined POST: RV = context
 	 */
 	public Model getContext() {
 		return context;
 	}
 
 	/**
-	 * PRE: context is defined
-	 * POST: context = context
+	 * PRE: context is defined POST: context = context
 	 */
 
 	public void setContext(Model context) {
@@ -943,48 +849,42 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: thickness is defined
-	 * POST: RV = thickness
+	 * PRE: thickness is defined POST: RV = thickness
 	 */
 	public int getThickness() {
 		return thickness;
 	}
 
 	/**
-	 * PRE: thickness is defined
-	 * POST: thickness = thickness
+	 * PRE: thickness is defined POST: thickness = thickness
 	 */
 	public void setThickness(int thickness) {
 		this.thickness = thickness;
 	}
 
 	/**
-	 * PRE: selected is defined
-	 * POST: RV = selected
+	 * PRE: selected is defined POST: RV = selected
 	 */
 	public boolean isSelected() {
 		return selected;
 	}
 
 	/**
-	 * PRE: selected is defined
-	 * POST: selected = selected
+	 * PRE: selected is defined POST: selected = selected
 	 */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
 
 	/**
-	 * PRE: colorChoice is defined
-	 * POST: RV = colorChoice
+	 * PRE: colorChoice is defined POST: RV = colorChoice
 	 */
 	public int getColorChoice() {
 		return colorChoice;
 	}
 
 	/**
-	 * PRE: colorChoice is defined
-	 * POST: colorChoice = colorChoice
+	 * PRE: colorChoice is defined POST: colorChoice = colorChoice
 	 */
 	public void setColorChoice(int colorChoice) {
 		this.colorChoice = colorChoice;
@@ -992,16 +892,14 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: weight is defined
-	 * POST: RV = weight
+	 * PRE: weight is defined POST: RV = weight
 	 */
 	public double getWeight() {
 		return weight;
 	}
 
 	/**
-	 * PRE: weight is defined
-	 * POST: weight = weight
+	 * PRE: weight is defined POST: weight = weight
 	 */
 	public void setWeight(double weight) {
 		if (weight < 0 && type == ACTIVATING) {
@@ -1013,32 +911,28 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: multiJointed is defined
-	 * POST: RV = multiJointed
+	 * PRE: multiJointed is defined POST: RV = multiJointed
 	 */
 	public boolean isMultiJointed() {
 		return multiJointed;
 	}
 
 	/**
-	 * PRE: multiJointed is defined
-	 * POST: multiJointed = multiJointed
+	 * PRE: multiJointed is defined POST: multiJointed = multiJointed
 	 */
 	public void setMultiJointed(boolean multiJointed) {
 		this.multiJointed = multiJointed;
 	}
 
 	/**
-	 * PRE: name is defined
-	 * POST: RV = name
+	 * PRE: name is defined POST: RV = name
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * PRE: name is defined
-	 * POST: name = name
+	 * PRE: name is defined POST: name = name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -1046,19 +940,21 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: port is defined
-	 * POST: RV = port
+	 * PRE: port is defined POST: RV = port
 	 */
 	public Viewport getPort() {
 		return port;
 	}
 
 	/**
-	 * PRE: port is defined
-	 * POST: port = port
+	 * PRE: port is defined POST: port = port
 	 */
 	public void setPort(Viewport port) {
 		this.port = port;
+	}
+
+	public boolean isDrawName() {
+		return drawName;
 	}
 
 	public void setDrawName(boolean drawName) {
@@ -1066,8 +962,7 @@ public class Edge {
 	}
 
 	/**
-	 * PRE: forcedType is defined
-	 * POST: RV = forcedType
+	 * PRE: forcedType is defined POST: RV = forcedType
 	 */
 	public boolean isForcedType() {
 		return forcedType;

@@ -26,6 +26,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
@@ -93,9 +94,8 @@ public class BMVManager extends JPanel {
 	LoadingPanel loadingPanel;
 
 	/**
-	 * PRE: mainframe is defined, framepane is defined
-	 * POST: this BMVManager has been defined and initialized with references to
-	 * mainframe and framepane.
+	 * PRE: mainframe is defined, framepane is defined POST: this BMVManager has
+	 * been defined and initialized with references to mainframe and framepane.
 	 * 
 	 * @param mainframe
 	 * @param framePane
@@ -148,12 +148,15 @@ public class BMVManager extends JPanel {
 		this.add(menuBar, BorderLayout.NORTH);
 		this.add(mainPane);
 		curMode = MODE.EDIT;
-		viewport.update(
-				new Rectangle(
-						(model.getTotalSize().width - layeredPanes.getSize().width) / 2,
-						(model.getTotalSize().height - layeredPanes.getSize().height) / 2,
-						VIEW_SIZE.width, VIEW_SIZE.height), layeredPanes
-						.getSize());
+		viewport
+				.update(
+						new Rectangle(
+								(model.getTotalSize().width - layeredPanes
+										.getSize().width) / 2, (model
+										.getTotalSize().height - layeredPanes
+										.getSize().height) / 2,
+								VIEW_SIZE.width, VIEW_SIZE.height),
+						layeredPanes.getSize());
 		mainframe.setContentPane(this);
 	}
 
@@ -371,14 +374,15 @@ public class BMVManager extends JPanel {
 		JCheckBoxMenuItem citem = new JCheckBoxMenuItem("Jointed Lines");
 		citem.setToolTipText("Toggle whether new lines will have joints (J)");
 		citem.setMnemonic(KeyEvent.VK_J);
-		item.addItemListener(new ItemListener() {
+		citem.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				editPanel.setMultiJointed(arg0.getStateChange() == ItemEvent.SELECTED);
+				editPanel
+						.setMultiJointed(arg0.getStateChange() == ItemEvent.SELECTED);
 			}
 		});
-		item.setEnabled(true);
-		item.setSelected(true);
+		citem.setEnabled(true);
+		citem.setSelected(false);
 		menu.add(citem);
 
 		item = new JMenuItem("Delete");
@@ -442,7 +446,8 @@ public class BMVManager extends JPanel {
 		menu.add(item);
 		menuBar.add(menu);
 		item = new JMenuItem("Simulate Model");
-		item.setToolTipText("Run a full simulation of the model to find equilibrium points and cycles (R)");
+		item
+				.setToolTipText("Run a full simulation of the model to find equilibrium points and cycles (R)");
 		item.setMnemonic(KeyEvent.VK_R);
 		item.addActionListener(new ActionListener() {
 			@Override
@@ -482,7 +487,8 @@ public class BMVManager extends JPanel {
 		item.setEnabled(true);
 		menu.add(item);
 		item = new JMenuItem("Run All Single Knockouts");
-		item.setToolTipText("Simulate this experiment in the model with each node knocked out one at a time (B)");
+		item
+				.setToolTipText("Simulate this experiment in the model with each node knocked out one at a time (B)");
 		item.setMnemonic(KeyEvent.VK_B);
 		item.addActionListener(new ActionListener() {
 			@Override
@@ -493,7 +499,8 @@ public class BMVManager extends JPanel {
 		item.setEnabled(true);
 		menu.add(item);
 		item = new JMenuItem("Run Random Update");
-		item.setToolTipText("Simulate this experiment updating a single random variable each time (R)");
+		item
+				.setToolTipText("Simulate this experiment updating a single random variable each time (R)");
 		item.setMnemonic(KeyEvent.VK_R);
 		item.addActionListener(new ActionListener() {
 			@Override
@@ -510,7 +517,8 @@ public class BMVManager extends JPanel {
 		menu = new JMenu("Options");
 		menu.setMnemonic(KeyEvent.VK_O);
 		citem = new JCheckBoxMenuItem("Enforce Continuity");
-		citem.setToolTipText("Toggle whether each update state in a table must be within one of its previous state (C)");
+		citem
+				.setToolTipText("Toggle whether each update state in a table must be within one of its previous state (C)");
 		citem.setMnemonic(KeyEvent.VK_C);
 		citem.addActionListener(new ActionListener() {
 			@Override
@@ -523,7 +531,8 @@ public class BMVManager extends JPanel {
 		menu.add(citem);
 
 		citem = new JCheckBoxMenuItem("Show Edge Names");
-		citem.setToolTipText("Toggle whether edge names are displayed or not (N)");
+		citem
+				.setToolTipText("Toggle whether edge names are displayed or not (N)");
 		citem.setMnemonic(KeyEvent.VK_N);
 		citem.addActionListener(new ActionListener() {
 			@Override
@@ -583,11 +592,10 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE:
-	 * POST: the operating system and architecture of the system, or at least
-	 * the versions of these properties shown to the javaVM, have been checked
-	 * and stored as os and arch enums so that the proper version of cyclone can
-	 * be called
+	 * PRE: POST: the operating system and architecture of the system, or at
+	 * least the versions of these properties shown to the javaVM, have been
+	 * checked and stored as os and arch enums so that the proper version of
+	 * cyclone can be called
 	 */
 	private void getSystemProperties() {
 
@@ -614,9 +622,8 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE: the menubar has been defined
-	 * POST: the save options ahve been enabled or disabled based on the current
-	 * mode of the program
+	 * PRE: the menubar has been defined POST: the save options ahve been
+	 * enabled or disabled based on the current mode of the program
 	 */
 	protected void updateMenuBar() {
 		JMenu submenu = null;
@@ -638,9 +645,8 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE: file is defined and is a resultsFile
-	 * POST: the curPanel is has been switched to the resultsPanel and
-	 * resultsFile has been loaded
+	 * PRE: file is defined and is a resultsFile POST: the curPanel is has been
+	 * switched to the resultsPanel and resultsFile has been loaded
 	 * 
 	 * @param resultsFile
 	 */
@@ -656,13 +662,13 @@ public class BMVManager extends JPanel {
 		curMode = MODE.RESULTS;
 		curPanel = resultPanel;
 		updateMenuBar();
-
+		resetZoom();
 		mainPane.transferFocus();
 	}
 
 	/**
-	 * PRE: trajPanel is defined
-	 * POST: the current panel has been switched to the trajPanel
+	 * PRE: trajPanel is defined POST: the current panel has been switched to
+	 * the trajPanel
 	 * 
 	 * @param switchingWithFile
 	 */
@@ -676,8 +682,8 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE: editPanel is defined
-	 * POST: the current panel is switched to the editPanel
+	 * PRE: editPanel is defined POST: the current panel is switched to the
+	 * editPanel
 	 */
 	protected void switchToEditPanel() {
 		editPanel.update();
@@ -689,10 +695,10 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE: the panel corresponding with the curMode is defined
-	 * POST: if the current mode was TRAJ then the currently viewed trajectory
-	 * has been saved; if EDIT then the current model has been saved. If results
-	 * then the currently viewed results have been saved (to save notes)
+	 * PRE: the panel corresponding with the curMode is defined POST: if the
+	 * current mode was TRAJ then the currently viewed trajectory has been
+	 * saved; if EDIT then the current model has been saved. If results then the
+	 * currently viewed results have been saved (to save notes)
 	 */
 	protected void saveCurrent() {
 		if (curMode == MODE.TRAJ) {
@@ -707,8 +713,7 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE:
-	 * POST: the nameDisplayPanel has been removed it was not null
+	 * PRE: POST: the nameDisplayPanel has been removed it was not null
 	 */
 	protected void removeNameDisplayPanel() {
 		if (curPanel.nameDisplayPanel != null) {
@@ -717,10 +722,10 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE: newFile is defined, all BMVPanel subpanel objects are defined
-	 * POST: the currently viewed data is saved (model, result, or trajectory)
-	 * and newFile is opened with the corresponding panel being switched to
-	 * current (Edit : model, Traj : experiment, Result : result)
+	 * PRE: newFile is defined, all BMVPanel subpanel objects are defined POST:
+	 * the currently viewed data is saved (model, result, or trajectory) and
+	 * newFile is opened with the corresponding panel being switched to current
+	 * (Edit : model, Traj : experiment, Result : result)
 	 * 
 	 * @param newFile
 	 */
@@ -744,6 +749,12 @@ public class BMVManager extends JPanel {
 				resultPanel.newFile(newFile.getPath());
 			}
 		} else if (newFile.getParentFile().getName().equals("Experiments")) {
+			if (!model.getModelName().equals(
+					newFile.getParentFile().getParentFile().getName())) {
+				model.loadModel(newFile.getParentFile().getParentFile()
+						.getName());
+				resetZoom();
+			}
 			trajPanel.trajectory.loadTraj(newFile);
 			trajPanel.update();
 			if (curMode != MODE.TRAJ) {
@@ -763,21 +774,22 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE:
-	 * POST: resets the viewport to default coordinates and zoom
+	 * PRE: POST: resets the viewport to default coordinates and zoom
 	 */
 	protected void resetZoom() {
-		viewport.update(
-				new Rectangle(
-						(model.getTotalSize().width - layeredPanes.getSize().width) / 2,
-						(model.getTotalSize().height - layeredPanes.getSize().height) / 2,
-						VIEW_SIZE.width, VIEW_SIZE.height), layeredPanes
-						.getSize());
+		viewport
+				.update(
+						new Rectangle(
+								(model.getTotalSize().width - layeredPanes
+										.getSize().width) / 2, (model
+										.getTotalSize().height - layeredPanes
+										.getSize().height) / 2,
+								VIEW_SIZE.width, VIEW_SIZE.height),
+						layeredPanes.getSize());
 	}
 
 	/**
-	 * PRE: text is defined
-	 * POST: changes the notesPane contexts to be text
+	 * PRE: text is defined POST: changes the notesPane contexts to be text
 	 * 
 	 * @param text
 	 */
@@ -786,8 +798,8 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE: resultPanel, trajPanel ,and editPanel are defined
-	 * POST: updates all three panels
+	 * PRE: resultPanel, trajPanel ,and editPanel are defined POST: updates all
+	 * three panels
 	 */
 	protected void updatePanels() {
 		resultPanel.update();
@@ -796,8 +808,8 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE: fileBrowser is defined
-	 * POST: fileBrowser has been updated to include or disinclude file changes
+	 * PRE: fileBrowser is defined POST: fileBrowser has been updated to include
+	 * or disinclude file changes
 	 */
 	protected void updateBrowser() {
 		fileBrowser.update();
@@ -805,9 +817,9 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE: modelname, filename, and newResult are defined
-	 * POST: sets the result specified by filename within modelname model as
-	 * either a new result or not new result
+	 * PRE: modelname, filename, and newResult are defined POST: sets the result
+	 * specified by filename within modelname model as either a new result or
+	 * not new result
 	 * 
 	 * @param modelname
 	 * @param filename
@@ -821,10 +833,9 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE: importFile is defined
-	 * POST: a new parser thread has been created based on importFile and
-	 * started. When it finishes, a new model based on importFile will have been
-	 * created and the fileBrowser updated
+	 * PRE: importFile is defined POST: a new parser thread has been created
+	 * based on importFile and started. When it finishes, a new model based on
+	 * importFile will have been created and the fileBrowser updated
 	 * 
 	 * @param importFile
 	 */
@@ -847,9 +858,9 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE: newModelName is defined
-	 * POST: the current model is saved under the new name and switched to as
-	 * the main view, as would be expected of a save-as command
+	 * PRE: newModelName is defined POST: the current model is saved under the
+	 * new name and switched to as the main view, as would be expected of a
+	 * save-as command
 	 * 
 	 * @param newModelName
 	 */
@@ -870,9 +881,9 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE: newExpName is defined
-	 * POST: the current experiment is saved under the new name and switched to
-	 * as the main view, as would be expected of a save-as command
+	 * PRE: newExpName is defined POST: the current experiment is saved under
+	 * the new name and switched to as the main view, as would be expected of a
+	 * save-as command
 	 * 
 	 * @param newExpName
 	 */
@@ -937,8 +948,7 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE:
-	 * POST: ass the loadingPanel at its first stage of loading message
+	 * PRE: POST: ass the loadingPanel at its first stage of loading message
 	 */
 	protected void startLoading() {
 		loadingPanel = new LoadingPanel(layeredPanes);
@@ -946,8 +956,7 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE:
-	 * POST: update the loadingPanel status to the next enum value
+	 * PRE: POST: update the loadingPanel status to the next enum value
 	 */
 	protected void updateLoading() {
 		loadingPanel.status = LoadingPanel.STATUS.values()[loadingPanel.status
@@ -955,8 +964,7 @@ public class BMVManager extends JPanel {
 	}
 
 	/**
-	 * PRE:
-	 * POST: remove the loadingPanel
+	 * PRE: POST: remove the loadingPanel
 	 */
 	protected void doneLoading() {
 		layeredPanes.remove(loadingPanel);

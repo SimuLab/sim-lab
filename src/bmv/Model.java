@@ -44,9 +44,9 @@ public class Model {
 	protected boolean interruptSaving;
 
 	/**
-	 * PRE: pane and port are defined
-	 * POST: this object has been initialized based on the pane and port and
-	 * default values have been given for class variables
+	 * PRE: pane and port are defined POST: this object has been initialized
+	 * based on the pane and port and default values have been given for class
+	 * variables
 	 * 
 	 * @param pane
 	 * @param port
@@ -71,9 +71,8 @@ public class Model {
 	}
 
 	/**
-	 * PRE: modelFilename is the name of a model file or is null
-	 * POST: this is instantiated to the model designated by the user or
-	 * modelFilename
+	 * PRE: modelFilename is the name of a model file or is null POST: this is
+	 * instantiated to the model designated by the user or modelFilename
 	 * 
 	 * @param modelFilename
 	 */
@@ -98,8 +97,7 @@ public class Model {
 	}
 
 	/**
-	 * PRE: orig is defined
-	 * POST: this is a deep copy of orig
+	 * PRE: orig is defined POST: this is a deep copy of orig
 	 * 
 	 * @param orig
 	 * @throws InvalidTableException
@@ -119,10 +117,10 @@ public class Model {
 			edges.get(edges.size() - 1).setEnd(
 					nodes.get(orig.getNodes().indexOf(
 							orig.getEdges().get(i).getEnd())));
-			edges.get(edges.size() - 1).getStart()
-					.addOutEdge(edges.get(edges.size() - 1));
-			edges.get(edges.size() - 1).getEnd()
-					.addInEdge(edges.get(edges.size() - 1));
+			edges.get(edges.size() - 1).getStart().addOutEdge(
+					edges.get(edges.size() - 1));
+			edges.get(edges.size() - 1).getEnd().addInEdge(
+					edges.get(edges.size() - 1));
 		}
 		maxStates = orig.getMaxStates();
 		modelName = orig.getModelName();
@@ -139,9 +137,8 @@ public class Model {
 	}
 
 	/**
-	 * PRE: "Resources/colorconfig.cfg" exists
-	 * POST: the colors arraylist has been initialized from the file
-	 * colorconfig.cfg
+	 * PRE: "Resources/colorconfig.cfg" exists POST: the colors arraylist has
+	 * been initialized from the file colorconfig.cfg
 	 */
 	protected void initializeColors() {
 		colors = new ArrayList<Color>();
@@ -159,9 +156,8 @@ public class Model {
 	}
 
 	/**
-	 * PRE: click is defined
-	 * POST: returns the index of the node click is inside of, or -1/NOTHING if
-	 * click did not touch a node
+	 * PRE: click is defined POST: returns the index of the node click is inside
+	 * of, or -1/NOTHING if click did not touch a node
 	 * 
 	 * @param click
 	 * @return
@@ -177,10 +173,10 @@ public class Model {
 	}
 
 	/**
-	 * PRE: this model is defined
-	 * POST: the configuration of this model is saved in a .csv file, along with
-	 * the tables for all nodes with tables defined in separate .csv files, all
-	 * of which are saved in a folder of the name saveFile, under Models/
+	 * PRE: this model is defined POST: the configuration of this model is saved
+	 * in a .csv file, along with the tables for all nodes with tables defined
+	 * in separate .csv files, all of which are saved in a folder of the name
+	 * saveFile, under Models/
 	 */
 	protected void saveModel() {
 		File saveFile = null;
@@ -241,9 +237,8 @@ public class Model {
 
 		/**
 		 * PRE: saveFile is a valid file in the correct directory to save this
-		 * model
-		 * POST: this model has been saved in saveFile and neighboring node.csv
-		 * files
+		 * model POST: this model has been saved in saveFile and neighboring
+		 * node.csv files
 		 * 
 		 * @param saveFile
 		 * @throws IOException
@@ -362,9 +357,8 @@ public class Model {
 	}
 
 	/**
-	 * PRE: "Models/modelName/" exists
-	 * POST: this model's simulation file has been written to its model folder
-	 * and named simulation.txt
+	 * PRE: "Models/modelName/" exists POST: this model's simulation file has
+	 * been written to its model folder and named simulation.txt
 	 * 
 	 * @return
 	 */
@@ -384,10 +378,9 @@ public class Model {
 	}
 
 	/**
-	 * PRE: nodes are all defined with valid tables
-	 * POST: RV = string containing the text of a combo file used for running
-	 * Cyclone, it consists of the number of nodes, followed by each node's
-	 * table
+	 * PRE: nodes are all defined with valid tables POST: RV = string containing
+	 * the text of a combo file used for running Cyclone, it consists of the
+	 * number of nodes, followed by each node's table
 	 * 
 	 * @return
 	 */
@@ -412,7 +405,8 @@ public class Model {
 			}
 			for (int b = 0; b < curNode.getInEdges().size(); b++) {
 				simString += "x"
-						+ (nodes.indexOf(curNode.getInEdges().get(b).getStart()) + 1)
+						+ (nodes
+								.indexOf(curNode.getInEdges().get(b).getStart()) + 1)
 						+ " ";
 			}
 			simString += "x" + (a + 1) + " x" + (a + 1) + "\n";
@@ -421,7 +415,8 @@ public class Model {
 			// if (!curNode.isKnockedOut()) {
 			for (int c = 0; c < table.getRowCount(); c++) {
 				simString += ((Term) table.getValueAt(c,
-						table.getColumnCount() - 1)).getValue() + "\n";
+						table.getColumnCount() - 1)).getValue()
+						+ "\n";
 			}
 			simString += "\n";
 			// } else {
@@ -436,8 +431,7 @@ public class Model {
 	}
 
 	/**
-	 * PRE:
-	 * POST: returns true if two or more nodes have different speeds, false
+	 * PRE: POST: returns true if two or more nodes have different speeds, false
 	 * otherwise
 	 * 
 	 * @return
@@ -454,9 +448,8 @@ public class Model {
 	}
 
 	/**
-	 * PRE: scales is defined and |scales| >= |nodes|
-	 * POST: all nodes have had their scale and knockout status updated to
-	 * reflect the values in scales
+	 * PRE: scales is defined and |scales| >= |nodes| POST: all nodes have had
+	 * their scale and knockout status updated to reflect the values in scales
 	 * 
 	 * @param scales
 	 */
@@ -473,12 +466,13 @@ public class Model {
 	}
 
 	/**
-	 * PRE:
-	 * POST: if a valid file was selected, then this object now contains all the
-	 * data of the selected model including nodes, node tables, and edges
+	 * PRE: POST: if a valid file was selected, then this object now contains
+	 * all the data of the selected model including nodes, node tables, and
+	 * edges
 	 */
 	protected void loadModel(String model) {
 		File loadFile;
+		pane.resetZoom();
 		if (model == null) {
 			JFileChooser jfc;
 			jfc = new JFileChooser(new File("Models/"));
@@ -504,8 +498,8 @@ public class Model {
 	}
 
 	/**
-	 * PRE: loadFile is defined
-	 * POST: the model specified by loadFile has been loaded into this object
+	 * PRE: loadFile is defined POST: the model specified by loadFile has been
+	 * loaded into this object
 	 * 
 	 * @param loadFile
 	 * @throws FileNotFoundException
@@ -568,9 +562,9 @@ public class Model {
 
 	/**
 	 * PRE: filescan is defined and set to the model file containing the node
-	 * data, numNodes is the number of nodes in the model
-	 * POST: filescan has been progressed to the end of the nodes listings, all
-	 * nodes have been loaded into this model
+	 * data, numNodes is the number of nodes in the model POST: filescan has
+	 * been progressed to the end of the nodes listings, all nodes have been
+	 * loaded into this model
 	 * 
 	 * @param filescan
 	 * @param numNodes
@@ -616,17 +610,19 @@ public class Model {
 			filescan.next();
 			tables[i] = new File("Models/" + modelName + "/" + filescan.next());
 
-			nodes.add(new Node(abrevName, fullName, new ImageIcon(
-					"Resources/Images/node" + shape + "-" + color + ".png"),
-					color, SHAPE.values()[shape], loc, rad, states, this, terms));
+			nodes
+					.add(new Node(abrevName, fullName, new ImageIcon(
+							"Resources/Images/node" + shape + "-" + color
+									+ ".png"), color, SHAPE.values()[shape],
+							loc, rad, states, this, terms));
 		}
 	}
 
 	/**
 	 * PRE: filescan is defined and set to the model file containing the node
-	 * data, numEdges is the number of edges in the model
-	 * POST: filescan has been progressed to the end of the edges listings, all
-	 * edges have been loaded into this model
+	 * data, numEdges is the number of edges in the model POST: filescan has
+	 * been progressed to the end of the edges listings, all edges have been
+	 * loaded into this model
 	 * 
 	 * @param filescan
 	 * @param numEdges
@@ -691,9 +687,8 @@ public class Model {
 	}
 
 	/**
-	 * PRE: scan and numDrawings is defined
-	 * POST: numDrawings drawings in scan have been loaded, initializing the
-	 * drawings arraylist
+	 * PRE: scan and numDrawings is defined POST: numDrawings drawings in scan
+	 * have been loaded, initializing the drawings arraylist
 	 * 
 	 * @param scan
 	 * @param numDrawings
@@ -722,8 +717,7 @@ public class Model {
 	}
 
 	/**
-	 * PRE:
-	 * POST: all nodes, edges, and drawings have been adjusted based on the
+	 * PRE: POST: all nodes, edges, and drawings have been adjusted based on the
 	 * current port size
 	 */
 	public void resize() {
@@ -740,8 +734,7 @@ public class Model {
 	}
 
 	/**
-	 * PRE: orig is defined
-	 * POST: this model is now a shallow copy of orig
+	 * PRE: orig is defined POST: this model is now a shallow copy of orig
 	 * 
 	 * @param orig
 	 */
@@ -757,176 +750,154 @@ public class Model {
 	}
 
 	/**
-	 * PRE: modelName is defined
-	 * POST: RV = modelName
+	 * PRE: modelName is defined POST: RV = modelName
 	 */
 	public String getModelName() {
 		return modelName;
 	}
 
 	/**
-	 * PRE: modelName is defined
-	 * POST: modelName = modelName
+	 * PRE: modelName is defined POST: modelName = modelName
 	 */
 	public void setModelName(String modelName) {
 		this.modelName = modelName;
 	}
 
 	/**
-	 * PRE: nodes is defined
-	 * POST: RV = nodes
+	 * PRE: nodes is defined POST: RV = nodes
 	 */
 	public ArrayList<Node> getNodes() {
 		return nodes;
 	}
 
 	/**
-	 * PRE: nodes is defined
-	 * POST: nodes = nodes
+	 * PRE: nodes is defined POST: nodes = nodes
 	 */
 	public void setNodes(ArrayList<Node> nodes) {
 		this.nodes = nodes;
 	}
 
 	/**
-	 * PRE: edges is defined
-	 * POST: RV = edges
+	 * PRE: edges is defined POST: RV = edges
 	 */
 	public ArrayList<Edge> getEdges() {
 		return edges;
 	}
 
 	/**
-	 * PRE: edges is defined
-	 * POST: edges = edges
+	 * PRE: edges is defined POST: edges = edges
 	 */
 	public void setEdges(ArrayList<Edge> edges) {
 		this.edges = edges;
 	}
 
 	/**
-	 * PRE: maxStates is defined
-	 * POST: RV = maxStates
+	 * PRE: maxStates is defined POST: RV = maxStates
 	 */
 	public int getMaxStates() {
 		return maxStates;
 	}
 
 	/**
-	 * PRE: maxStates is defined
-	 * POST: maxStates = maxStates
+	 * PRE: maxStates is defined POST: maxStates = maxStates
 	 */
 	public void setMaxStates(int maxStates) {
 		this.maxStates = maxStates;
 	}
 
 	/**
-	 * PRE: changesMade is defined
-	 * POST: RV = changesMade
+	 * PRE: changesMade is defined POST: RV = changesMade
 	 */
 	public boolean isChangesMade() {
 		return changesMade;
 	}
 
 	/**
-	 * PRE: changesMade is defined
-	 * POST: changesMade = changesMade
+	 * PRE: changesMade is defined POST: changesMade = changesMade
 	 */
 	public void setChangesMade(boolean changesMade) {
 		this.changesMade = changesMade;
 	}
 
 	/**
-	 * PRE: continuous is defined
-	 * POST: RV = continuous
+	 * PRE: continuous is defined POST: RV = continuous
 	 */
 	public boolean isContinuous() {
 		return continuous;
 	}
 
 	/**
-	 * PRE: continuous is defined
-	 * POST: continuous = continuous
+	 * PRE: continuous is defined POST: continuous = continuous
 	 */
 	public void setContinuous(boolean continuous) {
 		this.continuous = continuous;
 	}
 
 	/**
-	 * PRE: colors is defined
-	 * POST: RV = colors
+	 * PRE: colors is defined POST: RV = colors
 	 */
 	public ArrayList<Color> getColors() {
 		return colors;
 	}
 
 	/**
-	 * PRE: colors is defined
-	 * POST: colors = colors
+	 * PRE: colors is defined POST: colors = colors
 	 */
 	public void setColors(ArrayList<Color> colors) {
 		this.colors = colors;
 	}
 
 	/**
-	 * PRE: vocab is defined
-	 * POST: RV = vocab
+	 * PRE: vocab is defined POST: RV = vocab
 	 */
 	public StateVocabulary getVocab() {
 		return vocab;
 	}
 
 	/**
-	 * PRE: vocab is defined
-	 * POST: vocab = vocab
+	 * PRE: vocab is defined POST: vocab = vocab
 	 */
 	public void setVocab(StateVocabulary vocab) {
 		this.vocab = vocab;
 	}
 
 	/**
-	 * PRE: totalSize is defined
-	 * POST: RV = totalSize
+	 * PRE: totalSize is defined POST: RV = totalSize
 	 */
 	public Dimension getTotalSize() {
 		return totalSize;
 	}
 
 	/**
-	 * PRE: port is defined
-	 * POST: RV = port
+	 * PRE: port is defined POST: RV = port
 	 */
 	public Viewport getPort() {
 		return port;
 	}
 
 	/**
-	 * PRE: port is defined
-	 * POST: port = port
+	 * PRE: port is defined POST: port = port
 	 */
 	public void setPort(Viewport port) {
 		this.port = port;
 	}
 
 	/**
-	 * PRE: drawings is defined
-	 * POST: RV = drawings
+	 * PRE: drawings is defined POST: RV = drawings
 	 */
 	public ArrayList<Drawing> getDrawings() {
 		return drawings;
 	}
 
 	/**
-	 * PRE: drawings is defined
-	 * POST: drawings = drawings
+	 * PRE: drawings is defined POST: drawings = drawings
 	 */
 	public void setDrawings(ArrayList<Drawing> drawings) {
 		this.drawings = drawings;
 	}
 
 	/**
-	 * PRE: totalSize is defined
-	 * POST: totalSize = totalSize
+	 * PRE: totalSize is defined POST: totalSize = totalSize
 	 */
 	public void setTotalSize(Dimension totalSize) {
 		this.totalSize = totalSize;
@@ -939,48 +910,42 @@ public class Model {
 	}
 
 	/**
-	 * PRE: drawEdgeNames is defined
-	 * POST: RV = drawEdgeNames
+	 * PRE: drawEdgeNames is defined POST: RV = drawEdgeNames
 	 */
 	public boolean isDrawEdgeNames() {
 		return drawEdgeNames;
 	}
 
 	/**
-	 * PRE: notes is defined
-	 * POST: RV = notes
+	 * PRE: notes is defined POST: RV = notes
 	 */
 	public String getNotes() {
 		return notes;
 	}
 
 	/**
-	 * PRE: notes is defined
-	 * POST: notes = notes
+	 * PRE: notes is defined POST: notes = notes
 	 */
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
 
 	/**
-	 * PRE: pane is defined
-	 * POST: RV = pane
+	 * PRE: pane is defined POST: RV = pane
 	 */
 	public BMVManager getPane() {
 		return pane;
 	}
 
 	/**
-	 * PRE: pane is defined
-	 * POST: pane = pane
+	 * PRE: pane is defined POST: pane = pane
 	 */
 	public void setPane(BMVManager pane) {
 		this.pane = pane;
 	}
 
 	/**
-	 * PRE: drawEdgeNames is defined
-	 * POST: drawEdgeNames = drawEdgeNames
+	 * PRE: drawEdgeNames is defined POST: drawEdgeNames = drawEdgeNames
 	 */
 	public void setDrawEdgeNames(boolean drawEdgeNames) {
 		this.drawEdgeNames = drawEdgeNames;

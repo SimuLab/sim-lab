@@ -21,8 +21,7 @@ public class Viewport {
 	protected Dimension frameSize;
 
 	/**
-	 * PRE: this Viewport is undefined
-	 * POST: default values are initialized
+	 * PRE: this Viewport is undefined POST: default values are initialized
 	 */
 	public Viewport() {
 		port = new Rectangle(0, 0, 1, 1);
@@ -33,8 +32,7 @@ public class Viewport {
 	}
 
 	/**
-	 * PRE: orig is defined
-	 * POST: this Viewport is a deep copy of orig
+	 * PRE: orig is defined POST: this Viewport is a deep copy of orig
 	 * 
 	 * @param orig
 	 */
@@ -46,11 +44,10 @@ public class Viewport {
 	}
 
 	/**
-	 * PRIMARY CONSTRUCTOR
-	 * PRE: port, frameSize, and totalSize are defined
-	 * POST: this Viewport is initialized with the viewable area of port, and
-	 * the data about the frame it will scale to display in and the total size
-	 * of the model is is viewing are provided
+	 * PRIMARY CONSTRUCTOR PRE: port, frameSize, and totalSize are defined POST:
+	 * this Viewport is initialized with the viewable area of port, and the data
+	 * about the frame it will scale to display in and the total size of the
+	 * model is is viewing are provided
 	 * 
 	 * @param port
 	 * @param frameSize
@@ -64,9 +61,8 @@ public class Viewport {
 	}
 
 	/**
-	 * PRE: frameSize and port are defined
-	 * POST: the scaleFactors are updated to properly resize to fit into the
-	 * frameSize specified
+	 * PRE: frameSize and port are defined POST: the scaleFactors are updated to
+	 * properly resize to fit into the frameSize specified
 	 * 
 	 * @param frameSize
 	 */
@@ -78,18 +74,16 @@ public class Viewport {
 	}
 
 	/**
-	 * PRE: frameSize and port are defined
-	 * POST: this simply refreshes the scaleFactor in case the frameSize or port
-	 * has changed
+	 * PRE: frameSize and port are defined POST: this simply refreshes the
+	 * scaleFactor in case the frameSize or port has changed
 	 */
 	public void updateScaleFactor() {
 		updateScaleFactor(this.frameSize);
 	}
 
 	/**
-	 * PRE: viewCoord is defined
-	 * POST: returns the value of viewCoord in terms of totalSize (absolute
-	 * coordinates in the model)
+	 * PRE: viewCoord is defined POST: returns the value of viewCoord in terms
+	 * of totalSize (absolute coordinates in the model)
 	 * 
 	 * @param viewCoord
 	 * @return
@@ -101,9 +95,9 @@ public class Viewport {
 	}
 
 	/**
-	 * PRE: realCoord is defined
-	 * POST: returns the value of realCoord in terms of frameSize (used to place
-	 * objects from the model coordinates into the viewport/frame)
+	 * PRE: realCoord is defined POST: returns the value of realCoord in terms
+	 * of frameSize (used to place objects from the model coordinates into the
+	 * viewport/frame)
 	 * 
 	 * @param realCoord
 	 * @return
@@ -114,8 +108,7 @@ public class Viewport {
 	}
 
 	/**
-	 * PRE: newPort is defined
-	 * POST: this viewPort is a copy of newPort
+	 * PRE: newPort is defined POST: this viewPort is a copy of newPort
 	 * 
 	 * @param newPort
 	 */
@@ -127,9 +120,8 @@ public class Viewport {
 	}
 
 	/**
-	 * PRE: newCenter is defined
-	 * POST: the center of this Viewport is moved to newCenter, but it is forced
-	 * to stay within the boundaries of totalSize
+	 * PRE: newCenter is defined POST: the center of this Viewport is moved to
+	 * newCenter, but it is forced to stay within the boundaries of totalSize
 	 * 
 	 * @param newCenter
 	 */
@@ -149,8 +141,8 @@ public class Viewport {
 	}
 
 	/**
-	 * PRE: frameSize is defined
-	 * POST: change the frameSize and updated the scaleFactors
+	 * PRE: frameSize is defined POST: change the frameSize and updated the
+	 * scaleFactors
 	 * 
 	 * @param frameSize
 	 */
@@ -159,9 +151,8 @@ public class Viewport {
 	}
 
 	/**
-	 * PRE: port and frameSize are defined
-	 * POST: change the frameSize this viewport maps to and change the size of
-	 * the viewport in the model
+	 * PRE: port and frameSize are defined POST: change the frameSize this
+	 * viewport maps to and change the size of the viewport in the model
 	 * 
 	 * @param port
 	 * @param frameSize
@@ -172,8 +163,8 @@ public class Viewport {
 	}
 
 	/**
-	 * PRE: percentChange is defined
-	 * POST: change the size of the viewport by percentChange
+	 * PRE: percentChange is defined POST: change the size of the viewport by
+	 * percentChange
 	 * 
 	 * @param percentChange
 	 */
@@ -209,16 +200,14 @@ public class Viewport {
 	}
 
 	/**
-	 * PRE: port is defined
-	 * POST: RV = port
+	 * PRE: port is defined POST: RV = port
 	 */
 	public Rectangle getPort() {
 		return port;
 	}
 
 	/**
-	 * PRE: port is defined
-	 * POST: port = port
+	 * PRE: port is defined POST: port = port
 	 */
 	public void setPort(Rectangle port) {
 		if (port.x >= 0) {
@@ -241,24 +230,21 @@ public class Viewport {
 	}
 
 	/**
-	 * PRE: scaleFactor is defined
-	 * POST: RV = scaleFactor
+	 * PRE: scaleFactor is defined POST: RV = scaleFactor
 	 */
 	public double[] getScaleFactor() {
 		return scaleFactor;
 	}
 
 	/**
-	 * PRE: totalSize is defined
-	 * POST: totalSize = totalSize
+	 * PRE: totalSize is defined POST: totalSize = totalSize
 	 */
 	public void setTotalSize(Dimension totalSize) {
 		this.totalSize = totalSize;
 	}
 
 	/**
-	 * PRE: minScaleFactor is defined
-	 * POST: RV = minScaleFactor
+	 * PRE: minScaleFactor is defined POST: RV = minScaleFactor
 	 */
 	public double getMinScaleFactor() {
 		return minScaleFactor;

@@ -24,10 +24,8 @@ public class Trajectory {
 	protected String notes;
 
 	/**
-	 * PRIMARY CONSTRUCTOR
-	 * PRE: model is defined
-	 * POST: this trajectory has been initialized to default values and a
-	 * reference to model
+	 * PRIMARY CONSTRUCTOR PRE: model is defined POST: this trajectory has been
+	 * initialized to default values and a reference to model
 	 * 
 	 * @param model
 	 */
@@ -40,8 +38,7 @@ public class Trajectory {
 	}
 
 	/**
-	 * PRE: orig is defined
-	 * POST: this trajectory is a deep copy of orig.
+	 * PRE: orig is defined POST: this trajectory is a deep copy of orig.
 	 * 
 	 * @param orig
 	 */
@@ -54,11 +51,11 @@ public class Trajectory {
 	}
 
 	/**
-	 * PRE: this trajectory is defined
-	 * POST: the information pertinent to this trajectory is saved.
-	 * Specifically: the name of the model and the start levels are saved in a
-	 * .exp file in the folder of experiments inside the folder of the model. if
-	 * the model is unsaved then the user is prompted to save it first
+	 * PRE: this trajectory is defined POST: the information pertinent to this
+	 * trajectory is saved. Specifically: the name of the model and the start
+	 * levels are saved in a .exp file in the folder of experiments inside the
+	 * folder of the model. if the model is unsaved then the user is prompted to
+	 * save it first
 	 */
 	protected void saveTraj(boolean updateNotes) {
 		if (model.getModelName().equals("Unsaved")) {
@@ -90,9 +87,8 @@ public class Trajectory {
 	}
 
 	/**
-	 * PRE: saveFile is defined
-	 * POST: the modelName followed by the trajectory starting levels
-	 * notated as [ 1 0 2 ... 1 ] has been written to saveFile
+	 * PRE: saveFile is defined POST: the modelName followed by the trajectory
+	 * starting levels notated as [ 1 0 2 ... 1 ] has been written to saveFile
 	 * 
 	 * @param saveFile
 	 * @throws IOException
@@ -129,10 +125,9 @@ public class Trajectory {
 	}
 
 	/**
-	 * PRE:
-	 * POST: this trajectory is now set based on a file selected by the user. If
-	 * that trajectory used a different model than the current one, it has been
-	 * loaded
+	 * PRE: POST: this trajectory is now set based on a file selected by the
+	 * user. If that trajectory used a different model than the current one, it
+	 * has been loaded
 	 */
 	protected void loadTraj(boolean multiModel) {
 		JFileChooser jfc;
@@ -154,16 +149,11 @@ public class Trajectory {
 	}
 
 	/**
-	 * PRE:
-	 * POST: this trajectory is now set based on a file selected by the user. If
-	 * that trajectory used a different model than the current one, it has been
-	 * loaded
+	 * PRE: POST: this trajectory is now set based on a file selected by the
+	 * user. If that trajectory used a different model than the current one, it
+	 * has been loaded
 	 */
 	protected void loadTraj(File newFile) {
-		if (!model.getModelName().equals(
-				newFile.getParentFile().getParentFile().getName())) {
-			model.loadModel(newFile.getParentFile().getParentFile().getName());
-		}
 		try {
 			readTraj(newFile, false);
 		} catch (IOException e) {
@@ -172,8 +162,7 @@ public class Trajectory {
 	}
 
 	/**
-	 * PRE: orig is defined
-	 * POST: this trajectory is now a deep copy of orig
+	 * PRE: orig is defined POST: this trajectory is now a deep copy of orig
 	 * 
 	 * @param orig
 	 */
@@ -185,11 +174,10 @@ public class Trajectory {
 	}
 
 	/**
-	 * PRE: loadFile is defined
-	 * POST: the trajectory contained in loadFile has been loaded, if the model
-	 * was different than the current model and multiMode=false then the
-	 * different model has been loaded; if multiMode=true then the trajectory
-	 * has not been loaded
+	 * PRE: loadFile is defined POST: the trajectory contained in loadFile has
+	 * been loaded, if the model was different than the current model and
+	 * multiMode=false then the different model has been loaded; if
+	 * multiMode=true then the trajectory has not been loaded
 	 * 
 	 * @param loadFile
 	 * @throws FileNotFoundException
@@ -248,48 +236,42 @@ public class Trajectory {
 	}
 
 	/**
-	 * PRE: trajName is defined
-	 * POST: RV = trajName
+	 * PRE: trajName is defined POST: RV = trajName
 	 */
 	public String getTrajName() {
 		return trajName;
 	}
 
 	/**
-	 * PRE: trajName is defined
-	 * POST: trajName = trajName
+	 * PRE: trajName is defined POST: trajName = trajName
 	 */
 	public void setTrajName(String trajName) {
 		this.trajName = trajName;
 	}
 
 	/**
-	 * PRE: startLevels is defined
-	 * POST: RV = startLevels
+	 * PRE: startLevels is defined POST: RV = startLevels
 	 */
 	public int[] getStartLevels() {
 		return startLevels;
 	}
 
 	/**
-	 * PRE: startLevels is defined
-	 * POST: startLevels = startLevels
+	 * PRE: startLevels is defined POST: startLevels = startLevels
 	 */
 	public void setStartLevels(int[] startLevels) {
 		this.startLevels = startLevels;
 	}
 
 	/**
-	 * PRE: model is defined
-	 * POST: RV = model
+	 * PRE: model is defined POST: RV = model
 	 */
 	public Model getModel() {
 		return model;
 	}
 
 	/**
-	 * PRE: model is defined
-	 * POST: model = model
+	 * PRE: model is defined POST: model = model
 	 */
 	public void setModel(Model model) {
 		this.model = model;

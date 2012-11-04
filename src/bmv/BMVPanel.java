@@ -75,12 +75,11 @@ public class BMVPanel extends JPanel {
 	protected FullNamePanel nameDisplayPanel;
 
 	/*
-	 * REFERENCE VARIABLES
-	 * These variables point to objects that are used across the program, and
-	 * proper functionality depends on all the BMVPanels have references to the
-	 * same objects for these 4, so one should never create a "new" one of
-	 * these. If a "new" model is wanted, a function such as model.becomeModel
-	 * should be used so that the reference is maintained
+	 * REFERENCE VARIABLES These variables point to objects that are used across
+	 * the program, and proper functionality depends on all the BMVPanels have
+	 * references to the same objects for these 4, so one should never create a
+	 * "new" one of these. If a "new" model is wanted, a function such as
+	 * model.becomeModel should be used so that the reference is maintained
 	 */
 	protected Viewport port;
 	protected ModelHolder model;
@@ -88,9 +87,9 @@ public class BMVPanel extends JPanel {
 	protected JLayeredPane layer;
 
 	/**
-	 * PRIMARY CONSTRUCTOR
-	 * PRE: model, port, trajectory, and pLayer are all defined
-	 * POST: this panel has been initialized with references to the parameters.
+	 * PRIMARY CONSTRUCTOR PRE: model, port, trajectory, and pLayer are all
+	 * defined POST: this panel has been initialized with references to the
+	 * parameters.
 	 * 
 	 * @param model
 	 * @param port
@@ -116,8 +115,8 @@ public class BMVPanel extends JPanel {
 	}
 
 	/**
-	 * PRE: this object is uninitialized
-	 * POST: this object's menu and GUI have been initialized
+	 * PRE: this object is uninitialized POST: this object's menu and GUI have
+	 * been initialized
 	 */
 	protected void initialize() {
 		initializeMenu();
@@ -125,8 +124,7 @@ public class BMVPanel extends JPanel {
 	}
 
 	/**
-	 * PRE:
-	 * POST: activeGUI and staticGUI have been instantiated
+	 * PRE: POST: activeGUI and staticGUI have been instantiated
 	 */
 	protected void initializeGUI() {
 		staticGUI = new ArrayList<GUIElement>();
@@ -134,9 +132,9 @@ public class BMVPanel extends JPanel {
 	}
 
 	/**
-	 * PRE: icons 206, 206, and 058 exist in "Resources/icons/16/"
-	 * POST: toolbar has been initialized to contain the general panel
-	 * functions: zoom in, zoom out, and screencapture
+	 * PRE: icons 206, 206, and 058 exist in "Resources/icons/16/" POST: toolbar
+	 * has been initialized to contain the general panel functions: zoom in,
+	 * zoom out, and screencapture
 	 */
 	protected void initializeMenu() {
 
@@ -180,7 +178,8 @@ public class BMVPanel extends JPanel {
 		button.setPreferredSize(BUTTON_SIZE);
 		icon = new ImageIcon("Resources/icons/16/058.png");
 		button = new JButton(icon);
-		button.setToolTipText("Screencapture the current view and save it in ScreenCaptures/name.png (P)");
+		button
+				.setToolTipText("Screencapture the current view and save it in ScreenCaptures/name.png (P)");
 		button.setMnemonic(KeyEvent.VK_P);
 		button.addActionListener(new ActionListener() {
 			@Override
@@ -199,8 +198,8 @@ public class BMVPanel extends JPanel {
 	}
 
 	/**
-	 * PRE: screenCapPanel = null
-	 * POST: screenCapPanel has been initialized and popup conditions set
+	 * PRE: screenCapPanel = null POST: screenCapPanel has been initialized and
+	 * popup conditions set
 	 */
 	protected void promptScreenCapture() {
 		screenCapPanel = new ScreenCapPanel(new Point(100, 100), this);
@@ -212,10 +211,9 @@ public class BMVPanel extends JPanel {
 	}
 
 	/**
-	 * PRE: screenCapPanel != null
-	 * POST: screenCapPanel has been removed from the layer and set to null,
-	 * popup conditions have been reset and a new thread for generating the
-	 * screencapture image has been started
+	 * PRE: screenCapPanel != null POST: screenCapPanel has been removed from
+	 * the layer and set to null, popup conditions have been reset and a new
+	 * thread for generating the screencapture image has been started
 	 * 
 	 * @param name
 	 */
@@ -231,16 +229,14 @@ public class BMVPanel extends JPanel {
 	}
 
 	/**
-	 * PRE: model is defined
-	 * POST: RV = model
+	 * PRE: model is defined POST: RV = model
 	 */
 	public ModelHolder getModel() {
 		return model;
 	}
 
 	/**
-	 * PRE: model is defined
-	 * POST: model = model
+	 * PRE: model is defined POST: model = model
 	 */
 	public void setModel(ModelHolder model) {
 		this.model = model;
@@ -264,8 +260,8 @@ public class BMVPanel extends JPanel {
 
 		@Override
 		public void run() {
-			BufferedImage bi = new BufferedImage(layer.getWidth(),
-					layer.getHeight(), BufferedImage.TYPE_INT_RGB);
+			BufferedImage bi = new BufferedImage(layer.getWidth(), layer
+					.getHeight(), BufferedImage.TYPE_INT_RGB);
 			Graphics g = bi.createGraphics();
 
 			if (!blackAndWhite) {
@@ -299,12 +295,12 @@ public class BMVPanel extends JPanel {
 	}
 
 	/**
-	 * PRE: helpMessage, width, and height are defined. width and
-	 * height < this.getSize().width and .height, icon 207 exists at
-	 * "Resources/icons/16/"
-	 * POST: this BMVPanel's toolbar has had a help message added in the form of
-	 * a button with icon 207 which, when left or right clicked, produces a
-	 * popup menu text area of size width and height with helpMessage on it
+	 * PRE: helpMessage, width, and height are defined. width and height <
+	 * this.getSize().width and .height, icon 207 exists at
+	 * "Resources/icons/16/" POST: this BMVPanel's toolbar has had a help
+	 * message added in the form of a button with icon 207 which, when left or
+	 * right clicked, produces a popup menu text area of size width and height
+	 * with helpMessage on it
 	 * 
 	 * @param helpMessage
 	 * @param width
@@ -336,7 +332,8 @@ public class BMVPanel extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				helpPopup.show(helpButton, arg0.getPoint().x, arg0.getPoint().x);
+				helpPopup
+						.show(helpButton, arg0.getPoint().x, arg0.getPoint().x);
 			}
 
 			@Override
@@ -359,9 +356,8 @@ public class BMVPanel extends JPanel {
 	}
 
 	/**
-	 * PRE:
-	 * POST: panel variables which require updating when switching to the panel
-	 * have been updated
+	 * PRE: POST: panel variables which require updating when switching to the
+	 * panel have been updated
 	 */
 	protected void update() {
 	}
@@ -391,10 +387,9 @@ public class BMVPanel extends JPanel {
 		if (port.getPort().x + port.getPort().width >= model.getTotalSize().width - 2) {
 			((Graphics2D) g).setStroke(new BasicStroke(5));
 			g.setColor(Color.yellow);
-			g.drawLine(
-					getSize().width - parent.mainPane.getDividerLocation() - 18,
-					0,
-					getSize().width - parent.mainPane.getDividerLocation() - 18,
+			g.drawLine(getSize().width - parent.mainPane.getDividerLocation()
+					- 18, 0, getSize().width
+					- parent.mainPane.getDividerLocation() - 18,
 					getSize().height);
 		}
 		if (port.getPort().y + port.getPort().height >= model.getTotalSize().height - 2) {
@@ -438,15 +433,13 @@ public class BMVPanel extends JPanel {
 	}
 
 	/**
-	 * PRE:
-	 * POST: modelName and trajName GUI displays have been updated
+	 * PRE: POST: modelName and trajName GUI displays have been updated
 	 */
 	protected void updateNames() {
 	}
 
 	/**
-	 * PRE:
-	 * POST: all resizing required upon a change in panel size has occurred
+	 * PRE: POST: all resizing required upon a change in panel size has occurred
 	 */
 	protected void resize() {
 	}
@@ -530,7 +523,8 @@ public class BMVPanel extends JPanel {
 	}
 
 	protected void displayFullName(Node node) {
-		nameDisplayPanel = new FullNamePanel(node, node.getPixPos());
+		nameDisplayPanel = new FullNamePanel(node, new Point(
+				node.getPixPos().x - 20, node.getPixPos().y - 30));
 		layer.add(nameDisplayPanel, new Integer(3));
 	}
 

@@ -11,16 +11,16 @@ AbrevName:	Bcd
 FullName:	Bcd
 Color:	0
 Shape:	1
-Radius:	24.25
+Radius:	24.325000000000003
 States:	2	low	high
-Loc:	1725	1725
+Loc:	1722	1740
 Table:	Tables/Bcd.csv
 
 AbrevName:	Hb
 FullName:	Hb
 Color:	1
 Shape:	1
-Radius:	24.25
+Radius:	24.325000000000003
 States:	2	low	high
 Loc:	1825	1725
 Table:	Tables/Hb.csv
@@ -29,7 +29,7 @@ AbrevName:	gt
 FullName:	gt
 Color:	2
 Shape:	1
-Radius:	24.25
+Radius:	24.325000000000003
 States:	2	low	high
 Loc:	1925	1725
 Table:	Tables/gt.csv
@@ -38,7 +38,7 @@ AbrevName:	Kr
 FullName:	Kr
 Color:	3
 Shape:	1
-Radius:	24.25
+Radius:	24.325000000000003
 States:	2	low	high
 Loc:	2025	1725
 Table:	Tables/Kr.csv
@@ -47,7 +47,7 @@ AbrevName:	kni
 FullName:	kni
 Color:	4
 Shape:	1
-Radius:	24.25
+Radius:	24.325000000000003
 States:	2	low	high
 Loc:	2125	1725
 Table:	Tables/kni.csv
@@ -56,7 +56,7 @@ AbrevName:	Cad
 FullName:	Cad
 Color:	5
 Shape:	1
-Radius:	24.25
+Radius:	24.325000000000003
 States:	2	low	high
 Loc:	1725	1825
 Table:	Tables/Cad.csv
@@ -69,35 +69,35 @@ End:	Hb
 Name:	regulates
 Weight:	0.0
 Color:	0
-2	Anchors:	1725	1725	1825	1725
+2	Anchors:	1722	1740	1825	1725
 
 Start:	Bcd
 End:	Hb
 Name:	auto-activated
 Weight:	0.0
 Color:	0
-2	Anchors:	1725	1725	1825	1725
+2	Anchors:	1722	1740	1825	1725
 
 Start:	Bcd
 End:	gt
 Name:	activates
 Weight:	0.0
 Color:	0
-2	Anchors:	1725	1725	1925	1725
+2	Anchors:	1722	1740	1925	1725
 
 Start:	Bcd
 End:	Kr
 Name:	activates
 Weight:	0.0
 Color:	0
-2	Anchors:	1725	1725	2025	1725
+2	Anchors:	1722	1740	2025	1725
 
 Start:	Bcd
 End:	kni
 Name:	activates
 Weight:	0.0
 Color:	0
-2	Anchors:	1725	1725	2125	1725
+2	Anchors:	1722	1740	2125	1725
 
 Start:	Cad
 End:	gt
